@@ -1,0 +1,110 @@
+\documentclass{uc3mpracticas}
+
+\usepackage{helvet}
+\usepackage{multicol}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{changepage}
+\usepackage{geometry}
+\usepackage{caption}
+\usepackage{xcolor,colortbl}
+\usepackage{makecell}
+
+\usepackage{amsfonts}
+
+\definecolor{Gray}{gray}{0.85}
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+\definecolor{LightGreen}{rgb}{0.29,1,0.39}
+
+\newcolumntype{g}{>{\columncolor{Gray}}l}
+\newcolumntype{b}{>{\columncolor{LightCyan}}c}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                   Plantilla Prácticas UC3M                               %%%
+%%%                Universidad Carlos III de Madrid                          %%%
+%%%                   Alejandro Valverde Mahou                               %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Permitir cabeceras y pie de páginas personalizados
+\pagestyle{fancy}
+
+%Path por defecto de las imágenes
+\graphicspath{ {./images/} }
+
+%Declarar formato de encabezado y pie de página de las páginas del documento
+\fancypagestyle{doc}{
+  %Cabecera
+  \headerpr[1]{Test de Primalidad - AKS}{Hito 2}{Teoría Avanzada de la Computación}
+  %Pie de Página
+  \footerpr{}{\textbf{UC3M}}{{\thepage} de \pageref{LastPage}}
+}
+
+%Declarar formato de encabezado y pie del título e indice
+\fancypagestyle{titu}{%
+  %Cabecera
+  \headerpr{}{}{}
+  %Pie de Página
+  \footerpr{}{}{}
+}
+
+
+\appto\frontmatter{\pagestyle{titu}}
+\appto\mainmatter{\pagestyle{doc}}
+
+
+\begin{document}
+  %Comienzo formato título
+  \frontmatter
+
+
+  %Portada 1 (Centrado todo)
+  \centeredtitle{Images/LogoUC3M.png}{Grado en Ingeniería Informática}{Curso 2020/2021}{Teoría Avanzada de la Computación}{Test de Primalidad - \textit{AKS}}{Hito 2}
+
+  \vspace{55mm}
+
+  \authors{Iván Miguelez García}{100383387}{Alba Reinders Sánchez}{100383444}{Alejandro Valverde Mahou}{100383383}{}{}
+
+  \newpage
+
+  %Índice
+  \tableofcontents
+
+  \newpage
+
+  %Comienzo formato documento general
+  \mainmatter
+
+  \section{Hito 2: Estudio de la complejidad del \textit{Totient}}
+
+  En esta segunda parte se pide realizar el estudio analítico y empírico del cálculo del \textit{Totient} ($\phi(r)$). Donde $\phi(r)$ es el número de enteros positivos más pequeños o iguales que $r$ tales que $r$ es coprimo con ellos, es decir, su $mcd$ es 1.
+
+
+
+  \subsection{Estudio analítico}
+
+  A continuación, se realiza el estudio analítico para averiguar la complejidad temporal del algoritmo. Analizando el código se ve que la función del cálculo del \textit{Totient} está formada por un bucle \textit{for} externo y un bucle \textit{while} interno:
+
+  \vspace{2mm}
+
+  El bucle de fuera se ejecuta como mucho $\lfloor \sqrt{n} \rfloor$ veces, dado que en este caso, la peor situación se da cuando $n$ es un número primo, y por tanto el bucle de fuera tiene que recorrer desde $i = 2$ hasta $i = \lfloor \sqrt{n} \rfloor + 1$. Simplificando, se encuentra $\sqrt{n}$ veces.
+
+  \vspace{2mm}
+
+  El bucle de dentro se ejecuta como mucho $\log_i{n}$ veces, porque el peor caso resulta cuando $ n = i^k $ donde $ k $ es un número entero. Por tanto, despejando, $k = \log_in$, y $k$ representa el número de veces que se realiza el bucle.
+
+  \vspace{2mm}
+
+  Para que se cumpla el peor de los casos del bucle \textit{for} exterior, $n$ tiene que ser un número primo, y por tanto el bucle \textit{while} interior no se realizará ninguna vez. En el caso de que $n$ sea el número primo, también se obtiene el valor máximo de $\phi(n)$, que es $n-1$.
+
+
+
+  \subsection{Estudio empírico}
+
+
+
+% \newpage
+%
+% \bibliographystyle{unsrt}
+% \bibliography{bibliography}
+
+\end{document}
