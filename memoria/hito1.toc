@@ -1,8 +1,0 @@
-\babel@toc {spanish}{}
-\contentsline {section}{\numberline {1}Hito 1: Heurísticas iniciales}{3}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Heurística 1: comprobación potencia perfecta}{3}{subsection.1.1}%
-\contentsline {subsubsection}{\numberline {1.1.1}Estudio analítico}{3}{subsubsection.1.1.1}%
-\contentsline {subsubsection}{\numberline {1.1.2}Estudio empírico}{3}{subsubsection.1.1.2}%
-\contentsline {subsection}{\numberline {1.2}Heurística 2: cálculo de \textit {r} y \textit {mcd}}{4}{subsection.1.2}%
-\contentsline {subsubsection}{\numberline {1.2.1}Estudio analítico}{4}{subsubsection.1.2.1}%
-\contentsline {subsubsection}{\numberline {1.2.2}Estudio empírico}{5}{subsubsection.1.2.2}%
