@@ -5,6 +5,8 @@
 
 # Código en Python de AKS hasta el cálculo del Totient
 
+import math
+
 def perfect_power(n, verbose=False):
 
   for base in range(2, int(math.sqrt(n) + 1)):
@@ -92,4 +94,5 @@ calculate_r(3, True)
 
 calculate_gcd(5954, 97, True)
 
-totient(11)
+print(totient(11))
+
