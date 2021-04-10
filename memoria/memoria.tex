@@ -8,6 +8,7 @@
 \usepackage{caption}
 \usepackage{xcolor,colortbl}
 \usepackage{makecell}
+\usepackage{mathtools}
 
 \usepackage{amsfonts}
 
@@ -97,7 +98,7 @@
 
   \vspace{2mm}
 
-  Para los cálculos empíricos realizados, se han escogido aleatoriamente 500 números primos entre 5 y 9 cifras, 100 números por cada cifra.
+  Para los cálculos empíricos se propone realizar cada uno de los experimentos 10 veces, obtener los tiempos de ejecución y calcular la media de dichos tiempos con el objetivo de minimizar el posible ruido que se genera al ejecutar especialmente en una máquina \textit{Windows}.
 
 
   \section{Hito 1: Heurísticas iniciales}
@@ -109,7 +110,7 @@
 
 
 
-  \subsection{Heurística 1: comprobación potencia perfecta}
+  \subsection{Potencia perfecta}
 
   La primera heurística consiste en comprobar si un número es una potencia perfecta. Para ello, se debe cumplir la siguiente propiedad.
 
@@ -155,6 +156,11 @@
 
   \subsubsection{Estudio empírico}\label{empirico}
 
+  Para realizar el estudio empírico de la comprobación de la potencia perfecta, se ha utilizado una función para generar números primos de \textit{n} dígitos. En este caso, se han generado 500 números de 5 a 9 cifras, 100 números por cada cifra, para llevar a cabo la experimentación.
+
+  \vspace{3mm}
+
+
   Como se puede ver en la Figura \ref{fig:h1}, los tiempos obtenidos coinciden con la complejidad esperada. La complejidad de la heurística es $ O(n) = \sqrt{n} $, y haciendo uso de un optimizador de parámetros, se obtiene una curva con valor:
 
   $$ 1.7654419^{-07} * \sqrt{n} $$
@@ -170,7 +176,7 @@
   \begin{figure}[!h]
     \centering
     \includegraphics[width=.8\linewidth]{./Images/h1.png}
-    \caption{Gráfica de tiempo de la Heurística 1}
+    \caption{Gráfica de tiempo del experimento potencia perfecta}
     \label{fig:h1}
   \end{figure}
 
@@ -179,7 +185,7 @@
 
 
 
-  \subsection{Heurística 2: cálculo de \textit{r} y \textit{mcd}}
+  \subsection{Cálculo de \textit{r} y \textit{mcd}}
 
   Esta segunda heurística consiste en comprobar si se cumple la siguiente premisa:
 
@@ -191,7 +197,7 @@
   \subsubsection{Estudio analítico}
   Para determinar la complejidad temporal de esta segunda tarea se tiene que dividir el estudio en dos partes. En primer lugar, se debe calcular $r$ y después calcular el $mcd$.
 
-  \vspace{4mm}
+  \vspace{11mm}
 
   \textbf{Cálculo de \textit{r}}
 
@@ -208,7 +214,7 @@
 
   Donde $O_r(n)$ es el orden de $n$ módulo $r$ y representa el menor $k$ tal que:
 
-  $$ O_r(n) = k \; \Leftrightarrow \; n^k \equiv 1 \; mod \; r$$
+  $$ O_r(n) = k \; \Leftrightarrow \; n^k \equiv 1\pmod{r}$$
 
 
   Se sabe cuál es el máximo $r$ por el lema 4.3 de \textit{Primes is in P}\cite{primesinp}:
@@ -253,33 +259,39 @@
 
   \subsubsection{Estudio empírico}
 
-  En este caso, tal como se puede ver en la Figura \ref{fig:h2}, la diferencia entre el tiempo propuesto en el estudio analítico y el empírico es mucho mayor. Esto puede indicar que los cálculos del estudio analítico no sean correctos, o puede deberse a las mismas causas que se han descrito en el anterior estudio empírico \ref{empirico}.
+  Para esta experimentación se utilizan los mismos números que para el estudio empírico anterior. En este caso, tal como se puede ver en la Figura \ref{fig:h2}, la diferencia entre el tiempo propuesto en el estudio analítico y el empírico es algo mayor. Esto puede indicar que los cálculos del estudio analítico no sean correctos, aunque lo más probable es que se deba a la codificación del propio algoritmo de \textit{AKS}.
+
+  \vspace{2mm}
+
+  Resaltar que para realizar el estudio empírico, la entrada que recibe la función \textit{Totient} no es el resultado de calcular \textit{r} a partir del conjunto de números, pues los tiempos de ejecución son demasiado pequeños para poder observar un cambio significativo. Por ello, se utilizan directamente los números del conjunto con los que se obtienen tiempos de ejecución algo mayores que permiten visualizar la complejidad del algoritmo en la gráfica.
+
 
   \begin{figure}[!h]
     \centering
-    \includegraphics[width=.8\linewidth]{./Images/h2.png}
-    \caption{Gráfica de tiempo de la Heurística 2}
+    \includegraphics[width=.8\linewidth]{./Images/mcd.png}
+    \caption{Gráfica de tiempo del experimento del cálculo del \textit{mcd}}
     \label{fig:h2}
   \end{figure}
 
+  \newpage
 
   \section{Hito 2: Cálculo del Totient}
 
-  En esta segunda parte se pide realizar el estudio analítico y empírico del cálculo del \textit{Totient} ($\phi(r)$). Donde $\phi(r)$ es el número de enteros positivos más pequeños o iguales que $r$ tales que $r$ es coprimo con ellos, es decir, su $mcd$ es 1.
+  En esta segunda parte, se pide realizar el estudio analítico y empírico del cálculo del \textit{Totient} ($\phi(r)$), donde $\phi(r)$ es el número de enteros positivos más pequeños o iguales que $r$ tales que $r$ es coprimo con ellos, es decir, su $mcd$ es 1.
 
 
 
   \subsection{Estudio analítico}
 
-  A continuación, se realiza el estudio analítico para averiguar la complejidad temporal del algoritmo. Analizando el código se ve que la función del cálculo del \textit{Totient} está formada por un bucle \textit{for} externo y un bucle \textit{while} interno:
+  A continuación, se realiza el estudio analítico para averiguar la complejidad temporal del algoritmo. Analizando el código se ve que la función del cálculo del \textit{Totient} está formada por un bucle \textit{for} externo y un bucle \textit{while} interno.
 
   \vspace{2mm}
 
-  El bucle de fuera se ejecuta como mucho $\sqrt{r}$ veces, dado que en este caso, la peor situación se da cuando $r$ es un número primo, y por tanto el bucle de fuera tiene que recorrer desde $i = 2$ hasta $i = \lfloor \sqrt{n} \rfloor + 1$. Simplificando, se encuentra en $\sqrt{r}$ veces.
+  El bucle exterior se ejecuta como mucho $\sqrt{r}$ veces, dado que en este caso, la peor situación se da cuando $r$ es un número primo, y por tanto el bucle exterior tiene que recorrer desde $i = 2$ hasta $i = \lfloor \sqrt{n} \rfloor + 1$. Simplificando, se encuentra en $\sqrt{r}$ veces.
 
   \vspace{2mm}
 
-  El bucle de dentro se ejecuta como mucho $\log{r}$ veces, porque el peor caso resulta cuando $ r = i^k $ donde $ k $ es un número entero e $ i $ representa el iterador del bucle. Por tanto, despejando, $k = \log_ir$, y $k$ representa el número de veces que se realiza el bucle.
+  El bucle interno se ejecuta como mucho $\log{r}$ veces, porque el peor caso resulta cuando $ r = i^k $ donde $ k $ es un número entero e $ i $ representa el iterador del bucle. Despejando, $k = \log_ir$, y $k$ representa el número de veces que se realiza el bucle.
 
   \vspace{2mm}
 
@@ -291,16 +303,105 @@
 
   $$ T(r) = \sqrt{r-1} * \log r $$
 
-  $$ O(r) = \sqrt{r} * \log r $$
+  \vspace{5mm}
 
   y dado que la complejidad de $r$ es $\log^5(n)$, la complejidad es:
 
+  $$ O(r) = \sqrt{r} * \log r $$
+
   $$ O(n) = \sqrt{\log^5(n)} * \log (\log^5(n)) $$
+
+
+
+  \subsection{Estudio empírico}
+
+  Para realizar la experimentación del cálculo del \textit{Totient} se utiliza de nuevo el mismo conjunto de números que se utilizan en el Hito 1. Observando la gráfica de la Figura \ref{fig:totient}, se ve claramente como la línea azul que representa la función de la complejidad calculada en el estudio analítico encaja con la nube de puntos rojos que representan el tiempo de ejecución medido durante la experimentación.
+
+
+  \begin{figure}[!h]
+    \centering
+    \includegraphics[width=.8\linewidth]{./Images/totient.png}
+    \caption{Gráfica de tiempo del experimento cálculo del \textit{Totient}}
+    \label{fig:totient}
+  \end{figure}
+
+
+
 
   \section{Hito 3: Análisis de la condición suficiente}
 
+  En esta última parte, se va a realizar el estudio empírico y analítico de la condición suficiente del algoritmo \textit{AKS}. El objetivo de esta condición es determinar la primalidad de un número. Gracias al cálculo de \textit{r}, se puede implementar una mejora en el cálculo del \textit{mcd}:
+
+  \vspace{3mm}
+
+  Cálculo del \textit{mcd}:
+
+  $$ (x + a)^n \equiv (x^n + a)\pmod{n}$$
+
+
+  Mejora:
+
+  $$ (x + a)^n \equiv (x^n + a)\pmod{X^r-1}$$
+
+  \vspace{2mm}
+
+  La sección del código encargada de determinar la condición suficiente consta de un bucle definido por el rango que comprende la mejora implementada.
+
+
+
+
+  \subsection{Estudio analítico}
+
+  El estudio analítico de la condición suficiente de \textit{AKS} tan sólo se centra en el cálculo de la complejidad del bucle. Teniendo en cuenta la mejora anterior, el rango de número enteros que deben probarse es $[1, 2\sqrt{r}\log_2{n})$. Calculando el \textit{Totient} de \textit{r}, este rango pasa a ser $[1, 2\sqrt{\phi(r)}\log_2{n})$, disminuyendo así el número de iteraciones que la función encargada de determinar si un número es compuesto o no debe realizar. La implementación que se encuentra en la práctica difiere ligeramente con estos valores y utiliza como límite superior $\sqrt{\phi{(r)}}\log n$.
+
+  \vspace{3mm}
+
+  La complejidad es por tanto:
+
+  $$ O(r) = \sqrt{\phi{(r)}} * \log n $$
+
+
+  \subsection{Estudio empírico}
+
+  Para realizar el estudio empírico, inicialmente se utilizaron los mismos números que se usaron en los hitos anteriores. Sin embargo, a partir de las 5 cifras el tiempo necesario para calcular la condición suficiente de un número era demasiado elevada para realizar pruebas. Por lo tanto, se creó un generador de números primos y se seleccionaron 100 números de 3 cifras y 100 números de 4 cifras. El resultado es un conjunto de 200 números.
+
+  \vspace{3mm}
+
+  Analizando la Figura \ref{fig:suficiente}, la línea continua que representa la función de la complejidad de la condición suficiente, no encaja con la nube de puntos que representa los tiempos de ejecución obtenidos durante la experimentación. Esto se debe a que no se tiene en cuenta la complejidad de las funciones que pertenecen a la librería \textit{Poly}.
+
+  \begin{figure}[!h]
+    \centering
+    \includegraphics[width=.8\linewidth]{./Images/suficiente.png}
+    \caption{Gráfica de tiempo del experimento cálculo de la condición suficiente respecto a \textit{limit}}
+    \label{fig:suficiente}
+  \end{figure}
+
+  Según la documentación oficial \textit{Primes in P}\cite{primesinp}, la complejidad computacional de este apartado es:
+
+  $$ O(\log^\frac{21}{2}n) $$
+
+  \vspace{2mm}
+
+  Al comparar esta complejidad con los resultados empíricos, se observa en la Figura \ref{fig:suficiente2} como la función se ajusta adecuadamente a la nube de puntos, concluyendo así el estudio empírico.
+
+  \begin{figure}[!h]
+    \centering
+    \includegraphics[width=.8\linewidth]{./Images/suficiente2.png}
+    \caption{Gráfica de tiempo del experimento cálculo de la condición suficiente respecto a la complejidad descrita en el \textit{paper} original\cite{primesinp}}
+    \label{fig:suficiente2}
+  \end{figure}
+
+
+
+  \newpage
+
   \section{Conclusiones}
 
+  Dado que la complejidad más alta es la que pertenece al Hito 3, predomina sobre el resto de complejidades, y se puede afirmar, tal y como se menciona en el \textit{paper} original\cite{primesinp}, que la complejidad del algoritmo de test de primalidad \textit{AKS} es $ O(\log^\frac{21}{2}n) $. Los resultados teóricos se aproximan con bastante precisión a los resultados empíricos, confirmando que la implementación estudiada durante la práctica comparte una complejidad similar con la teoría.
+
+  \vspace{3mm}
+
+  Inicialmente se propuso realizar una traducción a \textit{Python} del código original para facilitar su comprensión. Esta implementación se llevó a cabo hasta la función \textit{Totient}. Además, se realizó una investigación previa a la traducción y se encontró un proyecto\cite{aks_git} que propone ciertas mejoras a la hora de codificar el algoritmo.
 
   \newpage
 
