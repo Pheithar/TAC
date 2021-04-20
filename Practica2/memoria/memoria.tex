@@ -1,0 +1,459 @@
+\documentclass{uc3mpracticas}
+
+\usepackage{helvet}
+\usepackage{multicol}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{changepage}
+\usepackage{geometry}
+\usepackage{caption}
+\usepackage{xcolor,colortbl}
+\usepackage{makecell}
+\usepackage{mathtools}
+
+\usepackage{amsfonts}
+
+\definecolor{Gray}{gray}{0.85}
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+\definecolor{LightGreen}{rgb}{0.29,1,0.39}
+
+\newcolumntype{g}{>{\columncolor{Gray}}l}
+\newcolumntype{b}{>{\columncolor{LightCyan}}c}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                   Plantilla Prácticas UC3M                               %%%
+%%%                Universidad Carlos III de Madrid                          %%%
+%%%                   Alejandro Valverde Mahou                               %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Permitir cabeceras y pie de páginas personalizados
+\pagestyle{fancy}
+
+%Path por defecto de las imágenes
+\graphicspath{ {./images/} }
+
+%Declarar formato de encabezado y pie de página de las páginas del documento
+\fancypagestyle{doc}{
+  %Cabecera
+  \headerpr[1]{Máquinas de Turing}{}{Teoría Avanzada de la Computación}
+  %Pie de Página
+  \footerpr{}{\textbf{UC3M}}{{\thepage} de \pageref{LastPage}}
+}
+
+%Declarar formato de encabezado y pie del título e indice
+\fancypagestyle{titu}{%
+  %Cabecera
+  \headerpr{}{}{}
+  %Pie de Página
+  \footerpr{}{}{}
+}
+
+
+\appto\frontmatter{\pagestyle{titu}}
+\appto\mainmatter{\pagestyle{doc}}
+
+
+\begin{document}
+  %Comienzo formato título
+  \frontmatter
+
+
+  %Portada 1 (Centrado todo)
+  \centeredtitle{Images/LogoUC3M.png}{Grado en Ingeniería Informática}{Curso 2020/2021}{Teoría Avanzada de la Computación}{Máquinas de Turing}{}
+
+  \vspace{55mm}
+
+  \authors{Iván Miguelez García}{100383387}{Alba Reinders Sánchez}{100383444}{Alejandro Valverde Mahou}{100383383}{}{}
+
+  \newpage
+
+  %Índice
+  \tableofcontents
+
+\newpage
+
+  %Comienzo formato documento general
+  \mainmatter
+
+  \section{Palíndromos I}
+
+  \subsection{MT Determinista de 1 cinta}
+
+
+  \subsubsection{Implementación Propuesta}
+
+  \begin{figure}[!h]
+    \imgcenter[150]{Images/ej0a1.png}
+    \caption{MT Determinista 1 cinta - Palíndromos}
+  \end{figure}
+
+
+
+
+  \subsubsection{Determinación del Peor Caso}
+
+  El peor caso ocurre cuando la entrada es palíndromo con cardinalidad par. Las palabras son de tamaño n=2k, según el espacio definido donde está contenido el conjunto de palíndromos. Cada recorrido completo de la cinta comprueba dos símbolos. Se recorren más símbolos cuando la palabra introducida es un palíndromo, ya que si no lo es, la máquina deja de recorrer la cinta.
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \textbf{Entrada} & \textbf{Pasos} & \textbf{Palíndromo} \\ \hline
+  aaaa             & 15             & SÍ                  \\ \hline
+  aabb             & 9              & NO                  \\ \hline
+  aabbaa           & 28             & SÍ                  \\ \hline
+  aabaaa           & 27             & NO                  \\ \hline
+  babaaa           & 13             & NO                  \\ \hline
+  \end{tabular}
+  \caption{Peor caso}
+  \end{table}
+
+
+
+  \subsubsection{Simulación con Diferentes Tamaños}
+
+    \begin{table}[!h]
+      \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Entrada} & \textbf{Tamaño} & \textbf{Pasos} \\ \hline
+    $\lambda$           & 0               & 1              \\ \hline
+    aa               & 2               & 6              \\ \hline
+    abba             & 4               & 15             \\ \hline
+    abaaba           & 6               & 28             \\ \hline
+    ababbaba         & 8               & 45             \\ \hline
+    ababaababa       & 10              & 66             \\ \hline
+    \end{tabular}
+    \caption{Diferentes tamaños}
+    \end{table}
+
+  \subsubsection{Cálculo de $T(n)$}
+
+
+
+
+
+\begin{table}[!h]
+  \centering
+\begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+\hline
+\textbf{N}     & \multicolumn{1}{c|}{\textbf{0}} & \multicolumn{1}{c|}{\textbf{2}} & \multicolumn{1}{c|}{\textbf{4}} & \multicolumn{1}{c|}{\textbf{6}} & \multicolumn{1}{c|}{\textbf{8}} & \multicolumn{1}{c|}{\textbf{10}} \\ \hline
+\textbf{Pasos} & \multicolumn{1}{c|}{1}          & \multicolumn{1}{c|}{6}          & \multicolumn{1}{c|}{15}         & \multicolumn{1}{c|}{28}         & \multicolumn{1}{c|}{45}         & \multicolumn{1}{c|}{66}          \\ \hline
+\textbf{Diferencia 1}                  &                                                         & 5                                                       & 9                               & 13                              & 21                              & 25                               \\ \hline
+\textbf{Diferencia 2}                  &                                                         & \multicolumn{1}{r|}{4}                                  & \multicolumn{1}{r|}{4}          & \multicolumn{1}{r|}{4}          & \multicolumn{1}{r|}{4}          &                                  \\ \hline
+\textbf{Diferencia 3}                  &                                                         &                                                         & 0                               & 0                               &                                 &                                  \\ \hline
+\end{tabular}
+\caption{Diferencias finitas}
+\end{table}
+
+
+  Dado que en la \textit{Diferencia 2} se encuentran valores constantes, es una ecuación de segundo grado:
+
+  $$ T(n) = an^2 + bn + c $$
+
+  Despejando sus valores se obtiene:
+
+  $$ T(0) = c = 1 $$
+  $$ T(2) = 4a + 2b + c = 6 $$
+  $$ T(4) = 16a + 4b + c = 15 $$
+
+  $$ a = \frac{1}{2} ,\quad b = \frac{3}{2} ,\quad c = 1 $$
+
+  La complejidad de esta máquina de Turing es:
+
+  $$ T(n) = \frac{1}{2}n^2 + \frac{3}{2}n + 1 $$
+
+  Por tanto el valor de $T(10)$ es:
+
+  $$ T(10) = \frac{1}{2}10^2 + \frac{3}{2}10 + 1 = 50 + 15 +1 = 66 $$
+
+
+
+
+
+
+  \subsection{MT Determinista de 2 cintas}
+
+  \subsubsection{Implementación Propuesta}
+
+
+  \begin{figure}
+    \imgcenter[150]{Images/ej0b1.png}
+    \caption{MT Determinista de 2 cintas - Palíndromos}
+  \end{figure}
+
+  \newpage
+
+  \subsubsection{Determinación del Peor Caso}
+
+  En este caso, todos los ejemplos del mismo tamaño tardan lo mismo, independientemente de si son palíndromos o no.
+
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+
+  \textbf{Entrada} & \textbf{Pasos} & \textbf{Palíndromo} \\ \hline
+
+  aaaa             & 15             & SÍ                  \\ \hline
+  aabb             & 15             & NO                  \\ \hline
+  aabbaa           & 21             & SÍ                  \\ \hline
+  aabaaa           & 21             & NO                  \\ \hline
+  babaaa           & 21             & NO                  \\ \hline
+  \end{tabular}
+  \caption{Peor caso}
+  \end{table}
+
+
+  \subsubsection{Simulación con Diferentes Tamaños}
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+
+  \textbf{Entrada} & \textbf{Tamaño} & \textbf{Pasos} \\ \hline
+
+  $\lambda$           & 0               & 4              \\ \hline
+  aa               & 2               & 9              \\ \hline
+  abba             & 4               & 15             \\ \hline
+  abaaba           & 6               & 21             \\ \hline
+  ababbaba         & 8               & 27             \\ \hline
+  ababaababa       & 10              & 33             \\ \hline
+  \end{tabular}
+  \caption{Diferentes tamaños}
+  \end{table}
+
+
+
+
+
+
+  \subsubsection{Cálculo de $T(n)$}
+
+
+  \begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}  \hline
+  \textbf{N}     & \multicolumn{1}{c|}{\textbf{0}} & \textbf{2} & \textbf{4}             & \textbf{6}             & \textbf{8}             & \multicolumn{1}{c|}{\textbf{10}} \\ \hline
+  \textbf{Pasos} & \multicolumn{1}{c|}{3}          & 9          & 15                     & 21                     & 27                     & \multicolumn{1}{c|}{33}          \\ \hline
+  \textbf{Diferencia 1}                  &                                                         & \multicolumn{1}{l|}{6}             & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{6} & 6                                \\ \hline
+  \textbf{Diferencia 2}                  &                                                         & \multicolumn{1}{r|}{0}             & \multicolumn{1}{r|}{0} & \multicolumn{1}{r|}{0} & \multicolumn{1}{r|}{0} &                                  \\ \hline
+  \end{tabular}
+  \caption{Diferencias finitas}
+  \end{table}
+
+  Dado que en la \textit{Diferencia 1} se encuentran valores constantes, es una ecuación de primer grado:
+
+
+  $$ T(n) = an+ b $$
+
+  Despejando sus valores se obtiene:
+
+  $$ T(0) = b = 3 $$
+  $$ T(2) = 2a + b = 9 $$
+
+  $$ a = 3 , \quad b = 3$$
+
+  La complejidad de esta máquina de Turing es:
+
+  $$ T(n) = 3n + 3 = 3(n+1) $$
+
+  Por tanto el valor de $T(10)$ es:
+
+  $$ T(10) = 3(10 + 1) = 33 $$
+
+
+  \subsection{MT No Determinista de 2 cintas}
+
+  \subsubsection{Implementación Propuesta}
+
+  \begin{figure}[!h]
+    \imgcenter[150]{Images/ej0c1.png}
+    \caption{MT No Determinista de 2 cintas - Palíndromos}
+  \end{figure}
+
+
+  \subsubsection{Determinación del Peor Caso}
+
+  En este caso, todos los ejemplos del mismo tamaño tardan lo mismo, independientemente de si son palíndromos o no. Por ese motivo no es necesario realizar la comprobación para determinar el peor caso.
+
+  \subsubsection{Simulación con Diferentes Tamaños}
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+
+  \textbf{Entrada} & \textbf{Tamaño} & \textbf{Pasos} \\ \hline
+
+  $\lambda$           & 0               & 2              \\ \hline
+  aa               & 2               & 3              \\ \hline
+  abba             & 4               & 5              \\ \hline
+  abaaba           & 6               & 7              \\ \hline
+  ababbaba         & 8               & 9              \\ \hline
+  ababaababa       & 10              & 11             \\ \hline
+  \end{tabular}
+  \caption{Diferentes tamaños}
+  \end{table}
+
+
+
+  \subsubsection{Cálculo de $T(n)$}
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+  \hline
+  \textbf{N}     & \multicolumn{1}{c|}{\textbf{0}} & \textbf{2} & \textbf{4}             & \textbf{6}             & \textbf{8}             & \multicolumn{1}{c|}{\textbf{10}} \\ \hline
+  \textbf{Pasos} & \multicolumn{1}{c|}{2}          & 3          & 5                      & 7                      & 9                      & \multicolumn{1}{c|}{11}          \\ \hline
+  \textbf{Diferencia 1}                  &                                                         & \multicolumn{1}{l|}{1}             & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{2} & 2                                \\ \hline
+  \textbf{Diferencia 2}                  &                                                         & \multicolumn{1}{r|}{1}             & \multicolumn{1}{r|}{0} & \multicolumn{1}{r|}{0} & \multicolumn{1}{r|}{0} &                                  \\ \hline
+  \end{tabular}
+  \caption{Diferencias finitas}
+  \end{table}
+
+
+    Nota: Para poder aceptar lambda es necesario utilizar una regla especializada, que hace que no se cumplan las diferencias finitas, añadiendo un paso más. Para el cálculo de T(n) se ignora este primer caso.
+
+    \vspace{2mm}
+
+    Dado que en la \textit{Diferencia 1} se encuentran valores constantes, es una ecuación de primer grado:
+
+
+    $$ T(n) = an+ b $$
+
+    Despejando sus valores se obtiene:
+
+    $$ T(2) = 2a + b = 3 $$
+    $$ T(4) = 4a + b = 5 $$
+
+    $$ a = 1 , \quad b = 1$$
+
+    La complejidad de esta máquina de Turing es:
+
+    $$ T(n) = n + 1 \forall n>0 $$
+
+    Por tanto el valor de $T(10)$ es:
+
+    $$ T(10) = 10 + 1 = 11 $$
+
+
+
+
+  \newpage
+
+  \section{Suma de enteros en base UNO}
+
+
+
+  \subsection{MT Determinista de 1 cinta}
+
+  \subsubsection{Implementación Propuesta}
+
+  \begin{figure}[!h]
+    \imgcenter[150]{Images/ej1a.png}
+    \caption{MT Determinista de 1 cinta - Suma de enteros en base UNO}
+  \end{figure}
+
+
+  \subsubsection{Determinación del Peor Caso}
+
+  En este problema el peor caso se encuentra cuando la parte izquierda de la suma está vacía y la parte derecha tiene todos los '1'. Esto se debe a que por cada '1' en la parte derecha, la máquina de Turing tiene que recorrer la tira entera hasta la izquierda.
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \textbf{Entrada} & \textbf{Pasos} & \textbf{Resultado} \\ \hline
+  1\$11            & 28             & 111              \\ \hline
+  11\$1            & 19             & 111              \\ \hline
+  111\$            & 10             & 111              \\ \hline
+  \$111            & 37             & 111              \\ \hline
+  \end{tabular}
+  \caption{Peor caso}
+  \end{table}
+
+
+  \subsubsection{Simulación con Diferentes Tamaños}
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \textbf{Entrada} & \textbf{Tamaño} & \textbf{Pasos} \\ \hline
+  \$               & 1               & 4              \\ \hline
+  \$1              & 2               & 11             \\ \hline
+  \$11             & 3               & 22             \\ \hline
+  \$111            & 4               & 37             \\ \hline
+  \$1111           & 5               & 56             \\ \hline
+  \end{tabular}
+  \caption{Diferentes tamaños}
+  \end{table}
+
+
+  \subsubsection{Cálculo de $T(n)$}
+
+  \begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+  \hline
+  \textbf{N}     & \multicolumn{1}{c|}{\textbf{1}} & \multicolumn{1}{c|}{\textbf{2}} & \multicolumn{1}{c|}{\textbf{3}} & \multicolumn{1}{c|}{\textbf{4}} & \multicolumn{1}{c|}{\textbf{5}} \\ \hline
+  \textbf{Pasos} & \multicolumn{1}{c|}{4}          & \multicolumn{1}{c|}{11}         & \multicolumn{1}{c|}{22}         & \multicolumn{1}{c|}{37}         & \multicolumn{1}{c|}{56}         \\ \hline
+  \textbf{Diferencia 1}                  &                                                         & 7                                                       & 11                              & 15                              & 19                              \\ \hline
+  \textbf{Diferencia 2}                  &                                                         & \multicolumn{1}{r|}{4}                                  & \multicolumn{1}{r|}{4}          & \multicolumn{1}{r|}{4}          &                                 \\ \hline
+  \textbf{Diferencia 3}                  &                                                         &                                                         & 0                               & 0                               &                                 \\ \hline
+  \end{tabular}
+  \caption{Diferencias finitas}
+  \end{table}
+
+
+  Dado que en la \textit{Diferencia 2} se encuentran valores constantes, es una ecuación de segundo grado:
+
+  $$ T(n) = an^2 + bn + c $$
+
+  Despejando sus valores se obtiene:
+
+  $$ T(1) = a + b + c = 4 $$
+  $$ T(2) = 4a + 2b + c = 11 $$
+  $$ T(3) = 9a + 3b + c = 22 $$
+
+  $$ a = 2 ,\quad b = 1 ,\quad c = 1 $$
+
+  La complejidad de esta máquina de Turing es:
+
+  $$ T(n) = 2n^2 + n + 1 $$
+
+  Por tanto el valor de $T(10)$ es:
+
+  $$ T(10) = 2*10^2 + 1*10 + 1= 200 + 10 + 1 = 211 $$
+
+
+
+
+
+
+
+
+
+  \subsection{MT Determinista de 2 cintas}
+
+  \subsubsection{Implementación Propuesta}
+
+  \subsubsection{Determinación del Peor Caso}
+
+  \subsubsection{Simulación con Diferentes Tamaños}
+
+  \subsubsection{Cálculo de $T(n)$}
+
+
+
+  \subsection{Evaluación de la mejora obtenida con la MT de 2 cintas}
+
+
+
+
+
+
+
+\end{document}
