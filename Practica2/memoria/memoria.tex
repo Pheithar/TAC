@@ -163,9 +163,23 @@
 
   $$ T(n) = \frac{1}{2}n^2 + \frac{3}{2}n + 1 $$
 
-  Por tanto el valor de $T(10)$ es:
+  Por tanto el valor de la cota asintótica superior $g(n)$ con $n_0 = 10$ es:
 
-  $$ T(10) = \frac{1}{2}10^2 + \frac{3}{2}10 + 1 = 50 + 15 +1 = 66 $$
+  $$ g(n) = kn^2 $$
+
+  $$ g(n) > T(n) $$
+
+  $$ kn^2 > \frac{1}{2}n^2 + \frac{3}{2}n + 1 $$
+  $$ k > \frac{1}{2} + \frac{3}{2n} + \frac{1}{n^2}$$
+  $$ n_0 = 10 $$
+  $$ k > \frac{1}{2} + \frac{3}{2 * 10} + \frac{1}{10^2}$$
+  $$ k > \frac{1}{2} + \frac{3}{20} + \frac{1}{100}$$
+  $$ k > \frac{66}{100}$$
+
+  $$ k > 0.66 $$
+  $$ k = 0.67 $$
+
+  $$ g(n) = 0.67n^2 $$
 
 
 
@@ -177,7 +191,7 @@
   \subsubsection{Implementación Propuesta}
 
 
-  \begin{figure}
+  \begin{figure}[!h]
     \imgcenter[150]{Images/ej0b1.png}
     \caption{MT Determinista de 2 cintas - Palíndromos}
   \end{figure}
@@ -232,17 +246,22 @@
 
   \subsubsection{Cálculo de $T(n)$}
 
-
   \begin{table}[!h]
     \centering
-    \begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}  \hline
-  \textbf{N}     & \multicolumn{1}{c|}{\textbf{0}} & \textbf{2} & \textbf{4}             & \textbf{6}             & \textbf{8}             & \multicolumn{1}{c|}{\textbf{10}} \\ \hline
-  \textbf{Pasos} & \multicolumn{1}{c|}{3}          & 9          & 15                     & 21                     & 27                     & \multicolumn{1}{c|}{33}          \\ \hline
-  \textbf{Diferencia 1}                  &                                                         & \multicolumn{1}{l|}{6}             & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{6} & \multicolumn{1}{l|}{6} & 6                                \\ \hline
-  \textbf{Diferencia 2}                  &                                                         & \multicolumn{1}{r|}{0}             & \multicolumn{1}{r|}{0} & \multicolumn{1}{r|}{0} & \multicolumn{1}{r|}{0} &                                  \\ \hline
+  \begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+  \hline
+  \textbf{N}     & \multicolumn{1}{c|}{\textbf{0}} & \multicolumn{1}{c|}{\textbf{2}} & \multicolumn{1}{c|}{\textbf{4}} & \multicolumn{1}{c|}{\textbf{6}} & \multicolumn{1}{c|}{\textbf{8}} & \multicolumn{1}{c|}{\textbf{10}} \\ \hline
+  \textbf{Pasos} & \multicolumn{1}{c|}{3}          & \multicolumn{1}{c|}{9}          & \multicolumn{1}{c|}{15}         & \multicolumn{1}{c|}{21}         & \multicolumn{1}{c|}{27}         & \multicolumn{1}{c|}{33}          \\ \hline
+  \textbf{Diferencia 1}                  &                                                         & 6                                                       & 6                               & 6                              & 6                              & 6                               \\ \hline
+  \textbf{Diferencia 2}                  &                                                         & \multicolumn{1}{r|}{0}                                  & \multicolumn{1}{r|}{0}          & \multicolumn{1}{r|}{0}          & \multicolumn{1}{r|}{0}          &                                  \\ \hline
   \end{tabular}
   \caption{Diferencias finitas}
   \end{table}
+
+
+
+
+
 
   Dado que en la \textit{Diferencia 1} se encuentran valores constantes, es una ecuación de primer grado:
 
@@ -260,9 +279,23 @@
 
   $$ T(n) = 3n + 3 = 3(n+1) $$
 
-  Por tanto el valor de $T(10)$ es:
+  Por tanto el valor de la cota asintótica superior $g(n)$ con $n_0 = 10$ es:
 
-  $$ T(10) = 3(10 + 1) = 33 $$
+  $$ g(n) = kn $$
+
+  $$ g(n) > T(n) $$
+
+  $$ kn > 3(n+1) $$
+  $$ k > \frac{3(n+1)}{n} $$
+  $$ k > 3 + \frac{3}{n} $$
+  $$ n_0 = 10 $$
+  $$ k > 3 + \frac{3}{10} $$
+  $$ k > \frac{33}{10} $$
+
+  $$ k > 3.3 $$
+  $$ k = 3.31 $$
+
+  $$ g(n) = 3.31n $$
 
 
   \subsection{MT No Determinista de 2 cintas}
@@ -302,18 +335,18 @@
 
   \subsubsection{Cálculo de $T(n)$}
 
+
   \begin{table}[!h]
     \centering
   \begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
   \hline
-  \textbf{N}     & \multicolumn{1}{c|}{\textbf{0}} & \textbf{2} & \textbf{4}             & \textbf{6}             & \textbf{8}             & \multicolumn{1}{c|}{\textbf{10}} \\ \hline
-  \textbf{Pasos} & \multicolumn{1}{c|}{2}          & 3          & 5                      & 7                      & 9                      & \multicolumn{1}{c|}{11}          \\ \hline
-  \textbf{Diferencia 1}                  &                                                         & \multicolumn{1}{l|}{1}             & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{2} & \multicolumn{1}{l|}{2} & 2                                \\ \hline
-  \textbf{Diferencia 2}                  &                                                         & \multicolumn{1}{r|}{1}             & \multicolumn{1}{r|}{0} & \multicolumn{1}{r|}{0} & \multicolumn{1}{r|}{0} &                                  \\ \hline
+  \textbf{N}     & \multicolumn{1}{c|}{\textbf{0}} & \multicolumn{1}{c|}{\textbf{2}} & \multicolumn{1}{c|}{\textbf{4}} & \multicolumn{1}{c|}{\textbf{6}} & \multicolumn{1}{c|}{\textbf{8}} & \multicolumn{1}{c|}{\textbf{10}} \\ \hline
+  \textbf{Pasos} & \multicolumn{1}{c|}{2}          & \multicolumn{1}{c|}{3}          & \multicolumn{1}{c|}{5}         & \multicolumn{1}{c|}{7}         & \multicolumn{1}{c|}{9}         & \multicolumn{1}{c|}{11}          \\ \hline
+  \textbf{Diferencia 1}                  &                                                         & 1                                                       & 2                               & 2                              & 2                              & 2                               \\ \hline
+  \textbf{Diferencia 2}                  &                                                         & \multicolumn{1}{r|}{1}                                  & \multicolumn{1}{r|}{0}          & \multicolumn{1}{r|}{0}          & \multicolumn{1}{r|}{0}          &                                  \\ \hline
   \end{tabular}
   \caption{Diferencias finitas}
   \end{table}
-
 
     Nota: Para poder aceptar lambda es necesario utilizar una regla especializada, que hace que no se cumplan las diferencias finitas, añadiendo un paso más. Para el cálculo de T(n) se ignora este primer caso.
 
@@ -333,17 +366,27 @@
 
     La complejidad de esta máquina de Turing es:
 
-    $$ T(n) = n + 1 \forall n>0 $$
+    $$ T(n) = n + 1 \quad \forall \; n>0 $$
 
-    Por tanto el valor de $T(10)$ es:
+    Por tanto el valor de la cota asintótica superior $g(n)$ con $n_0 = 10$ es:
 
-    $$ T(10) = 10 + 1 = 11 $$
+    $$ g(n) = kn $$
 
+    $$ g(n) > T(n) $$
 
+    $$ kn > n + 1 $$
+    $$ k > 1 + \frac{1}{n} $$
+    $$ n_0 = 10 $$
+    $$ k > 1 + \frac{1}{10} $$
+    $$ k > \frac{11}{10} $$
+
+    $$ k > 1.1 $$
+    $$ k = 1.11 $$
+
+    $$ g(n) = 1.11n $$
 
 
   \newpage
-
   \section{Suma de enteros en base UNO}
 
 
@@ -367,10 +410,10 @@
   \begin{tabular}{|c|c|c|}
   \hline
   \textbf{Entrada} & \textbf{Pasos} & \textbf{Resultado} \\ \hline
+  \$111            & 37             & 111              \\ \hline
   1\$11            & 28             & 111              \\ \hline
   11\$1            & 19             & 111              \\ \hline
   111\$            & 10             & 111              \\ \hline
-  \$111            & 37             & 111              \\ \hline
   \end{tabular}
   \caption{Peor caso}
   \end{table}
@@ -408,6 +451,7 @@
   \end{table}
 
 
+
   Dado que en la \textit{Diferencia 2} se encuentran valores constantes, es una ecuación de segundo grado:
 
   $$ T(n) = an^2 + bn + c $$
@@ -424,10 +468,199 @@
 
   $$ T(n) = 2n^2 + n + 1 $$
 
-  Por tanto el valor de $T(10)$ es:
+  Por tanto el valor de la cota asintótica superior $g(n)$ con $n_0 = 10$ es:
 
-  $$ T(10) = 2*10^2 + 1*10 + 1= 200 + 10 + 1 = 211 $$
+  $$ g(n) = kn^2 $$
 
+  $$ g(n) > T(n) $$
+
+  $$ kn^2 > 2n^2 + n + 1 $$
+  $$ k > 2 + \frac{1}{n} + \frac{1}{n^2} $$
+  $$ n_0 = 10 $$
+  $$ k > 2 + \frac{1}{10} + \frac{1}{10^2} $$
+  $$ k > 2 + \frac{1}{10} + \frac{1}{100} $$
+  $$ k > \frac{211}{100} $$
+
+  $$ k > 2.11 $$
+  $$ k = 2.12 $$
+
+  $$ g(n) = 2.12n^2 $$
+
+
+
+
+
+
+
+  \newpage
+
+  \subsection{MT Determinista de 2 cintas}
+
+  \subsubsection{Implementación Propuesta}
+
+
+  \begin{figure}[!h]
+    \imgcenter[150]{Images/ej1b.png}
+    \caption{MT Determinista de 2 cintas - Suma de enteros en base UNO}
+  \end{figure}
+
+
+  \subsubsection{Determinación del Peor Caso}
+
+  Al igual que en la versión con una sola cinta, el peor caso surge cuando la parte izquierda se encuentra vacía, y la parte derecha tiene todos los '1'.
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \textbf{Entrada} & \textbf{Pasos} & \textbf{Resultado} \\ \hline
+  \$111            & 14             & 111                \\ \hline
+  1\$11            & 13             & 111                \\ \hline
+  11\$1            & 12             & 111                \\ \hline
+  111\$            & 11             & 111                \\ \hline
+  \end{tabular}
+  \caption{Peor caso}
+  \end{table}
+
+  \subsubsection{Simulación con Diferentes Tamaños}
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+
+  \textbf{Entrada} & \textbf{Tamaño} & \textbf{Pasos} \\ \hline
+
+  \$      & 1               & 5              \\ \hline
+  \$1     & 2               & 8              \\ \hline
+  \$11    & 3               & 11             \\ \hline
+  \$111   & 4               & 14             \\ \hline
+  \$1111           & 5               & 17             \\ \hline
+  \end{tabular}
+  \caption{Diferentes tamaños}
+  \end{table}
+
+
+
+  \subsubsection{Cálculo de $T(n)$}
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+  \hline
+  \textbf{N}     & \multicolumn{1}{c|}{\textbf{1}} & \multicolumn{1}{c|}{\textbf{2}} & \multicolumn{1}{c|}{\textbf{3}} & \multicolumn{1}{c|}{\textbf{4}} & \multicolumn{1}{c|}{\textbf{5}} \\ \hline
+  \textbf{Pasos} & \multicolumn{1}{c|}{5}          & \multicolumn{1}{c|}{8}          & \multicolumn{1}{c|}{11}         & \multicolumn{1}{c|}{14}         & \multicolumn{1}{c|}{17} \\ \hline
+  \textbf{Diferencia 1}                  &                                                         & 3                                                       & 3                               & 3                              & 3                             \\ \hline
+  \textbf{Diferencia 2}                  &                                                         & \multicolumn{1}{r|}{0}                                  & \multicolumn{1}{r|}{0}          & \multicolumn{1}{r|}{0}       &                         \\ \hline
+  \end{tabular}
+  \caption{Diferencias finitas}
+  \end{table}
+
+  Dado que en la \textit{Diferencia 1} se encuentran valores constantes, es una ecuación de primer grado:
+
+
+  $$ T(n) = an + b $$
+
+  Despejando sus valores se obtiene:
+
+  $$ T(1) = a + b = 5 $$
+  $$ T(2) = 2a + b = 8 $$
+
+  $$ a = 3 , \quad b = 2$$
+
+  La complejidad de esta máquina de Turing es:
+
+  $$ T(n) = 3n + 2$$
+
+  Por tanto el valor de la cota asintótica superior $g(n)$ con $n_0 = 10$ es:
+
+  $$ g(n) = kn $$
+
+  $$ g(n) > T(n) $$
+
+  $$ kn > 3n + 2 $$
+  $$ k > 3 + \frac{2}{n} $$
+  $$ n_0 = 10 $$
+  $$ k > 3 + \frac{2}{10} $$
+  $$ k > \frac{32}{10} $$
+
+  $$ k > 3.2 $$
+  $$ k = 3.21 $$
+
+  $$ g(n) = 3.21n $$
+
+
+
+  \subsection{Evaluación de la mejora obtenida con la MT de 2 cintas}
+
+
+  \begin{figure}[!h]
+    \imgcenter[170]{Images/comparativaBaseUno.png}
+    \caption{Comparativa MT 1 cinta vs. MT 2 cintas}
+    \label{fig:comparativa1}
+  \end{figure}
+
+  La Máquina de Turing de suma de números en base UNO con una sola cinta tiene un coste polinomial de grado 2 ($T(n) = 2n^2 + n + 1$), mientras que la que tiene dos cintas es tan solo de grado 1 ($T(n) = 3n + 2$), de forma que la máquina que tiene dos cintas tiene un menor coste computacional. Empíricamente se puede ver con la figura \ref{fig:comparativa1} la diferencia entre estas dos funciones.
+
+
+  \vspace{4mm}
+
+  Esto se debe a que la MT de una cinta tiene que recorrer la palabra entera de izquierda a derecha continuamente, mientras que la MT que usa dos cintas le basta con que cada una recorra uno de los dos operandos.
+
+
+
+  \clearpage
+
+
+  \section{Suma de enteros en base DOS}
+
+
+
+  \subsection{MT Determinista de 1 cinta}
+
+  \subsubsection{Implementación Propuesta}
+
+  \begin{figure}[!h]
+    \imgcenter[150]{Images/ej2a.png}
+    \caption{MT Determinista de 1 cinta - Suma de enteros en base DOS}
+  \end{figure}
+
+
+  \subsubsection{Determinación del Peor Caso}
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \textbf{Entrada} & \textbf{Pasos} & \textbf{Resultado} \\ \hline
+  \$00             & 14             & cinta vacía        \\ \hline
+  \$01             & 23             & 1                  \\ \hline
+  \$10             & 34             & 10                 \\ \hline
+  \$11             & 42             & 11                 \\ \hline
+  0\$0             & 12             & 0                  \\ \hline
+  0\$1             & 12             & 1                  \\ \hline
+  1\$0             & 18             & 1                  \\ \hline
+  1\$1             & 21             & 10                 \\ \hline
+  00\$             & error          & error              \\ \hline
+  01\$             & error          & error              \\ \hline
+  10\$             & error          & error              \\ \hline
+  11\$             & error          & error              \\ \hline
+  1\$11            & 48             & 100                \\ \hline
+  11\$1            & 25             & 100                \\ \hline
+  \$111            & 99             & 111                \\ \hline
+  0\$111           & 99             & 111                \\ \hline
+  \end{tabular}
+  \caption{Peor caso}
+  \end{table}
+
+
+  \subsubsection{Simulación con Diferentes Tamaños}
+
+
+
+
+
+  \subsubsection{Cálculo de $T(n)$}
 
 
 
@@ -440,15 +673,463 @@
 
   \subsubsection{Implementación Propuesta}
 
+  \begin{figure}[!h]
+    \imgcenter[150]{Images/ej2b.png}
+    \caption{MT Determinista de 2 cintas - Suma de enteros en base DOS}
+  \end{figure}
+
+
   \subsubsection{Determinación del Peor Caso}
 
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \textbf{Entrada} & \textbf{Pasos} & \textbf{Resultado} \\ \hline
+  \$00             & 10             & 00                 \\ \hline
+  \$01             & 10             & 01                 \\ \hline
+  \$10             & 10             & 10                 \\ \hline
+  \$11             & 10             & 11                 \\ \hline
+  0\$0             & 8              & 0                  \\ \hline
+  0\$1             & 8              & 1                  \\ \hline
+  1\$0             & 8              & 1                  \\ \hline
+  1\$1             & 11             & 10                 \\ \hline
+  11\$11           & 17             & 110                \\ \hline
+  11\$10           & 15             & 101                \\ \hline
+  111\$111         & 23             & 1110               \\ \hline
+  11\$1111         & 27             & 10010              \\ \hline
+  1\$11111         & 31             & 100000             \\ \hline
+  1111\$11         & 25             & 10010              \\ \hline
+  \end{tabular}
+  \caption{Peor caso}
+  \end{table}
+
+
+
   \subsubsection{Simulación con Diferentes Tamaños}
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \textbf{Entrada} & \textbf{Tamaño} & \textbf{Pasos} \\ \hline
+  1\$1    & 3               & 11             \\ \hline
+  1\$11   & 4               & 16             \\ \hline
+  1\$111  & 5               & 21             \\ \hline
+  1\$1111 & 6               & 26             \\ \hline
+  1\$11111         & 7               & 31             \\ \hline
+  \end{tabular}
+  \caption{Diferentes tamaños}
+  \end{table}
+
 
   \subsubsection{Cálculo de $T(n)$}
 
 
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+  \hline
+  \textbf{N}     & \multicolumn{1}{c|}{\textbf{3}} & \multicolumn{1}{c|}{\textbf{4}} & \multicolumn{1}{c|}{\textbf{5}} & \multicolumn{1}{c|}{\textbf{6}} & \multicolumn{1}{c|}{\textbf{7}} \\ \hline
+  \textbf{Pasos} & \multicolumn{1}{c|}{11}          & \multicolumn{1}{c|}{16}          & \multicolumn{1}{c|}{21}         & \multicolumn{1}{c|}{26}         & \multicolumn{1}{c|}{31} \\ \hline
+  \textbf{Diferencia 1}                  &                                                         & 5                                                       & 5                               & 5                              &   5                           \\ \hline
+  \textbf{Diferencia 2}                  &                                                         & \multicolumn{1}{r|}{0}                                  & \multicolumn{1}{r|}{0}          & \multicolumn{1}{r|}{0}       &                         \\ \hline
+  \end{tabular}
+  \caption{Diferencias finitas}
+  \end{table}
+
+
+
 
   \subsection{Evaluación de la mejora obtenida con la MT de 2 cintas}
+
+
+
+
+
+
+
+  \newpage
+
+  \section{Comparativa de los Ejercicios 1 y 2}
+
+  \subsection{Determinar la eficiencia de cada algoritmo}
+
+  \subsection{¿Por qué la diferencia de complejidades?}
+
+  \subsection{¿Cómo se interpretan las diferencias en complejidad y en eficiencia?}
+
+
+
+
+
+  \newpage
+
+
+  \section{Palíndromo de Orden k}
+
+  \subsection{MT Determinista de 3 cintas}
+
+
+  \subsubsection{Implementación Propuesta}
+
+  La máquina que se plantea cuenta con 3 cintas. Dada una entrada de la forma $ k\$x $, donde $k$ es el orden del palíndromo y $x$ es la palabra, el funcionamiento general es:
+    \begin{enumerate}
+      \item Se recorre la cinta 1 hasta que se encuentre blanco, pero a partir de que se encuentre el símbolo $\$$ copia en la cinta 2 todo lo que hay en la 1, es decir, la palabra.
+      \item Se rebobinan ambas cintas, en la cinta 1 se va borrando hasta llegar a $k$, y en la cinta 2 se rebobina hasta ponerse en el símbolo de más a la izquierda sin modificar nada.
+      \item Se entra en un bucle para determinar si la palabra es palíndromo de orden $k$:
+      \begin{enumerate}
+        \item Se borra el primer símbolo de la izquierda de la palabra de la cinta 2.
+        \item Se recorre la cinta 2 entera hasta la derecha del todo.
+        \item Si el símbolo coincide con el borrado al principio, se apunta en la cinta 3 el símbolo, y se borra en la cinta 2. Esto se hace para almacenar la mitad de la palabra en caso de que sea palíndromo, para poder calcular el siguiente orden.
+        \item Si el símbolo no coincide, se termina, dado que se puede concluir que la palabra no es palíndromo.
+        \item Esto se realiza hasta que la cinta 2 se encuentra vacía. Entonces se elimina un '1' de la cinta 1, y se copia en la cinta 2 el contenido de la cinta 3, mientras se borra esta tercera cinta.
+      \end{enumerate}
+      \item El bucle termina cuando se ha demostrado que no es palíndromo del orden requerido, o cuando la cinta 1 no tiene ningún '1' más, por lo que se cumple la condición de que $x$ es al menos palíndromo de orden $k$, y por tanto termina el algoritmo.
+    \end{enumerate}
+
+    \begin{figure}[!h]
+      \imgcenter[175]{Images/ej4a.png}
+      \caption{MT Determinista de 3 cintas - Comprobación de polinomios de grado $k$}
+    \end{figure}
+
+
+  \subsubsection{Determinación del Peor Caso}
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \textbf{Entrada} & \textbf{Pasos} & \textbf{Resultado} \\ \hline
+  \$aaa   & 13             & 0                  \\ \hline
+    \$aab   & 13             & 0                  \\ \hline
+  1\$aa   & 16             & 1                  \\ \hline
+  1\$ab            & 15             & 0                  \\ \hline
+  11\$a            & 14             & 0                  \\ \hline
+  111\$            & 10             & 0                  \\ \hline
+  \end{tabular}
+  \caption{Peor caso}
+  \end{table}
+
+  El peor caso se da cuando la palabra $x$ es palíndromo de orden $k$ porque es el caso en el que tiene que recorrer más veces el bucle. $x$ tendrá un tamaño igual a $2^k$ porque es el tamaño del palíndromo más pequeño que existe de orden $k$ y está compuesto por el mismo símbolo exclusivamente.
+
+
+  \subsubsection{Simulación con Diferentes Tamaños}
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \textbf{Entrada}       & \textbf{Tamaño} & \textbf{Pasos} \\ \hline
+  \$            & 1               & 4              \\ \hline
+  1\$aa         & 4               & 16             \\ \hline
+  11\$aaaa      & 7               & 39             \\ \hline
+  111\$aaaaaaaa          & 12              & 98             \\ \hline
+  1111\$aaaaaaaaaaaaaaaa & 21              & 277            \\ \hline
+  \end{tabular}
+  \caption{Diferentes tamaños}
+  \end{table}
+
+
+
+
+
+  \subsubsection{Cálculo de $T(n)$}
+
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+  \hline
+  \textbf{N}     & \multicolumn{1}{c|}{\textbf{1}} & \multicolumn{1}{c|}{\textbf{4}} & \multicolumn{1}{c|}{\textbf{7}} & \multicolumn{1}{c|}{\textbf{12}} & \multicolumn{1}{c|}{\textbf{21}} \\ \hline
+  \textbf{Pasos} & \multicolumn{1}{c|}{4}          & \multicolumn{1}{c|}{16}          & \multicolumn{1}{c|}{39}         & \multicolumn{1}{c|}{98}         & \multicolumn{1}{c|}{277} \\ \hline
+  \textbf{Diferencia 1}                  &                                                         & 12                                                       & 23                               & 59                              &   179                           \\ \hline
+  \textbf{Diferencia 2}                  &                                                         & \multicolumn{1}{r|}{11}                                  & \multicolumn{1}{r|}{36}          & \multicolumn{1}{r|}{120}       &                         \\ \hline
+  \end{tabular}
+  \caption{Diferencias finitas}
+  \label{tab:diferencias_finitas_pk}
+  \end{table}
+
+
+
+
+  Como se puede ver en la tabla \ref{tab:diferencias_finitas_pk}, por el método de diferencias finitas no se consiguen sacar valores constantes y por tanto se realiza otro tipo de análisis. Se analiza el comportamiento de la máquina para poder encontrar su complejidad.
+
+  \vspace{2mm}
+
+  La MT planteada se puede dividir en 2 bloques diferenciados. La preparación de las cintas y el bucle que comprueba la condición. Como se ha visto en apartados anteriores, el peor caso se da cuando $x$ es igual a $2^k$ porque esto quiere decir que $x$ es el palíndromo de orden $k$ más pequeño.
+
+  \vspace{2mm}
+
+
+  La preparación de la cinta depende del tamaño de la misma. Primero se recorre completamente hacia la derecha, hasta que se encuentra blanco, y después se vuelve hasta $k$, por tanto se recorre $k + 1(\$) + x + 1(blanco) + x + 1(\$)$ y dado que $x=2^k$, la complejidad de la preparación de las cintas es:
+
+  $$ T_{prep}(k) = k + 2*2^k + 3 $$
+
+  \vspace{2mm}
+
+
+
+
+  Por otro lado, para el bucle se observa que tiene una especie de comportamiento recursivo. Siendo el caso base $ 1\$aa $, se aprecia que el siguiente palíndromo ($11\$aaaa $) contiene a este. El siguiente contiene a su vez a estos 2 últimos y así sucesivamente. Esto se puede ver en la tabla \ref{tab:detalle} donde el resultado total de cada ejemplo es:
+
+
+  $$ T_{bucle}(k) = T_{bucle}(k-1) + y $$
+
+
+
+
+  Donde $y$ representa el coste de comprobar si $x$ es palíndromo o no. Este coste es determinado por su longitud. Dado que cada vez se tiene que recorrer menos distancia de derecha a izquierda, porque cada vez se va acortando la palabra según se van haciendo comprobaciones, resulta en un proceso iterativo. A continuación se muestra un ejemplo de este funcionamiento:
+
+  $$ Cinta_1: 1\mathbf{1} $$
+  $$ Cinta_2: \mathbf{a}bba $$
+  $$ Cinta_3:  $$
+
+
+  $$ Cinta_1: 1\mathbf{1} $$
+  $$ Cinta_2: bb\mathbf{a} $$
+  $$ Cinta_3:  $$
+
+
+  $$ Cinta_1: 1\mathbf{1} $$
+  $$ Cinta_2: \mathbf{b}b $$
+  $$ Cinta_3: \mathbf{a} $$
+
+
+  $$ Cinta_1: 1\mathbf{1} $$
+  $$ Cinta_2: \mathbf{b} $$
+  $$ Cinta_3: \mathbf{a} $$
+
+  $$ Cinta_1: 1\mathbf{1} $$
+  $$ Cinta_2: $$
+  $$ Cinta_3: a\mathbf{b} $$
+
+  Este proceso está seguido por un copiado de la cinta 3 en la cinta 2 de nuevo, y la eliminación de un '1' de la cinta 1, borrando en el proceso la cinta 3, para poder repetir comprobación del palíndromo, pero con un tamaño reducido. Esto tiene un coste de $\frac{x}{2} + 2$, porque ahora el tamaño de $x$ es la mitad, y añade 1 paso más cada vez que se llega al final o principio de la palabra, porque se encuentra un blanco y debe cambiar de dirección.
+
+  \vspace{2mm}
+
+  Por tanto, la complejidad de realizar el bucle es:
+
+  $$ y = \frac{x}{2} + 2 + x + \displaystyle\sum_{i=1}^x i $$
+
+  lo que en función de $k$ se esxpresa como:
+
+  $$ y = 2 + \frac{3*2^k}{2} + \displaystyle\sum_{i=1}^{2^k} i $$
+
+
+  El sumatorio que se añade representa el número de pasos que se realizan cuando se desplaza el cabezal de izquierda a derecha según se van borrando los extremos de la palabra. Adicionalmente, dado que el paso se hace $x$ veces, se añade este valor porque es el número de veces que encuentra blanco y tiene que cambiar de dirección, añadiendo un paso más cada vez.
+
+
+
+  \vspace{2mm}
+
+  La complejidad total de esta máquina de Turing es:
+
+
+  $$ T(k) = T_{prep}(k) + T_{bucle}(k) = k + 2*2^k + 3 + 2 + \frac{3*2^k}{2} + \displaystyle\sum_{i=1}^{2^k} (i) + T_{bucle}(k-1)$$
+
+  que, eliminando la recursividad, es:
+
+  $$ T(k) =  k + 2*2^k + 3 + \displaystyle\sum_{i=1}^k (2 + \frac{3*2^i}{2} + \displaystyle\sum_{j=1}^{2^i} j)$$
+
+  \textit{Nota: esta función está definida en función de $k$ dado que es la que marca la complejidad del problema. La $n$ es consecuente del tamaño de $k$ según la siguiente formula $ n = k + 1 + 2^k $. }
+
+  \vspace{2mm}
+
+  Estos resultados coinciden con los resultados obtenidos empíricamente, que se pueden ver con mayor detalle en la tabla \ref{tab:detalle}.
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+  \hline
+  \textbf{Entrada}       & \textbf{Tamaño} & \textbf{k} & \textbf{x} & \textbf{prep(k)} & \textbf{bucle(k)} & \textbf{Total} \\ \hline
+  1\$aa                  & 4               &   1        & 2           & 8                & 8                 & 16             \\ \hline
+  11\$aaaa               & 7               &   2        & 4           & 13               & 18                & 39             \\ \hline
+  111\$aaaaaaaa          & 12              &   3        & 8           & 22               & 50                & 98             \\ \hline
+  1111\$aaaaaaaaaaaaaaaa & 21              &   4        & 16          & 39               & 16                & 277            \\ \hline
+  \end{tabular}
+  \caption{Ampliación con más información sobre cada ejemplo}
+  \label{tab:detalle}
+\end{table}
+
+Dado que la complejidad está definida sobre $k$, se calcula la cota superior asintótica $g(k)$ usando $k_0 = 10$.
+
+$$ g(k) = c*2^k $$
+
+$$ g(k) > T(k) $$
+
+
+$$c*2^k >  k + 2*2^k + 3 + \displaystyle\sum_{i=1}^k (2 + \frac{3*2^i}{2} + \displaystyle\sum_{j=1}^{2^i} j) $$
+
+$$c*2^{10} > 10 + 2*2^{10} + 3 + \displaystyle\sum_{i=1}^{10} (2 + \frac{3*2^i}{2} + \displaystyle\sum_{j=1}^{2^i} j) $$
+
+$$ c*2^{10} > 15390 $$
+
+$$ c > \frac{15390}{2^{10}} $$
+$$ c >  \frac{7695}{512}$$
+$$ c > 15.029 $$
+
+$$ c = 15.03 $$
+
+$$ g(k) = 15.03*2^k $$
+
+
+
+\subsection{MT No Determinista de 4 cintas}
+
+\subsubsection{Implementación Propuesta}
+
+El funcionamiento de esta máquina toma como referencia el funcionamiento de la máquina no determinista propuesta en el ejemplo de la práctica, que comprueba si una palabra es un palíndromo.
+
+\vspace{2mm}
+
+Para esta máquina se propone el uso de cuatro cintas, una para llevar a cabo la resta en base 1 del orden $k$ dado, dos cintas más para llevar a cabo la comprobación de la palindromía de la palabra dada, y una última cinta para guardar la mitad de la palabra dada.
+
+\vspace{2mm}
+
+La máquina empieza copiando la palabra $x$ en la cinta 2, dejando solamente $k$ en la cinta 1 y las cintas 3 y 4 vacías. A continuación, se lleva a cabo la comprobación de si la palabra dada es palíndromo de forma no determinista. Para ello, se elimina la primera letra de la palabra, que se encuentra en la cinta 2, y se copia en las cintas 3 y 4. De forma sucesiva, se plantean dos posibles caminos para la máquina: comprobar si las palabras de las cintas 2 y 3 son idénticas, o seguir copiando símbolos en las cintas 3 y 4.
+
+\vspace{1mm}
+
+Si la palabra dada es un palíndromo, cuando la mitad de la palabra ya haya sido borrada de la cinta 2 y copiada en las otras cintas, la máquina comenzará a comprobar que las palabras de las cintas 2 y 3 son iguales (esta transición es tomada cada vez que se copia un nuevo símbolo). Cuando esta comprobación termine, la máquina habrá detectado que la palabra dada es un palíndromo.
+
+\vspace{2mm}
+
+En este punto, en la primera cinta hay uno o varios 1’s, las cintas 2 y 3 están vacías y la cinta 4 almacena la mitad de la palabra original. Cuando esto se da, se resta 1 a $k$ en la primera cinta y se copia la palabra de la cinta 4 a la cinta 2, quedando la cinta 4 vacía. Mientras la cinta 2 no esté vacía, todo el proceso se repite en un bucle, hasta que la palabra analizada no sea un palíndromo o se haya comprobado que la palabra dada es palíndromo de al menos orden $k$.
+
+
+\begin{figure}[!h]
+  \imgcenter[175]{Images/ej4b.png}
+  \caption{MT No Determinista de 4 cintas - Comprobación de polinomios de grado $k$}
+\end{figure}
+
+
+\subsubsection{Determinación del Peor Caso}
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \textbf{Entrada} & \textbf{Pasos} & \textbf{Resultado} \\ \hline
+  \$aaa   & 10             & no acepta          \\ \hline
+  \$aab   & 10             & no acepta          \\ \hline
+  1\$aa   & 13             & acepta             \\ \hline
+  1\$ab            & 11             & no acepta          \\ \hline
+  11\$a            & 9              & no acepta          \\ \hline
+  111\$            & 7              & no acepta          \\ \hline
+  \end{tabular}
+  \caption{Peor caso}
+  \end{table}
+
+  El peor caso se da, al igual que en la MT determinista, cuando la palabra $x$ es palíndromo de orden $k$ porque es el caso en el que tiene que recorrer más veces el bucle.
+
+  \vspace{3mm}
+
+  En cambio, esta MT, al ser no determinista, no debe aceptar aquellos casos en los que la entrada no cumpla la condición de dada.
+
+\newpage
+
+\subsubsection{Simulación con Diferentes Tamaños}
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \textbf{Entrada}       & \textbf{Tamaño} & \textbf{Pasos} \\ \hline
+  \$            & 1               & 4              \\ \hline
+  1\$aa         & 4               & 13             \\ \hline
+  11\$aaaa      & 7               & 29             \\ \hline
+  111\$aaaaaaaa          & 12              & 57             \\ \hline
+  1111\$aaaaaaaaaaaaaaaa & 21              & 109            \\ \hline
+  \end{tabular}
+  \caption{Diferente tamaños}
+  \end{table}
+
+
+\subsubsection{Cálculo de $T(n)$}
+
+\begin{table}[!h]
+  \centering
+\begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+\hline
+\textbf{N}     & \multicolumn{1}{c|}{\textbf{1}} & \multicolumn{1}{c|}{\textbf{4}} & \multicolumn{1}{c|}{\textbf{7}} & \multicolumn{1}{c|}{\textbf{12}} & \multicolumn{1}{c|}{\textbf{21}} \\ \hline
+\textbf{Pasos} & \multicolumn{1}{c|}{4}          & \multicolumn{1}{c|}{13}          & \multicolumn{1}{c|}{29}         & \multicolumn{1}{c|}{57}         & \multicolumn{1}{c|}{109} \\ \hline
+\textbf{Diferencia 1}                  &                                                         & 9                                                       & 16                               & 28                              &   52                           \\ \hline
+\textbf{Diferencia 2}                  &                                                         & \multicolumn{1}{r|}{7}                                  & \multicolumn{1}{r|}{12}          & \multicolumn{1}{r|}{24}       &                         \\ \hline
+\end{tabular}
+\caption{Diferencias finitas}
+\label{tab:difUlt}
+\end{table}
+
+
+Se puede ver en la tabla \ref{tab:difUlt} que por el método de diferencias finitas no se obtienen valores constantes, pero se puede ver que en la diferencia 2 es una exponencial perfecta porque multiplica por 2 cada vez (ignorando el primer caso porque es diferente al resto).
+
+\vspace{2mm}
+
+Se aprecia que $12$ es $ 2^2 *3$ y que $24$ es $2^3 * 3$, por lo que se intenta aproximar con diferentes valores de $k$ y se encuentra que se puede generalizar a $2^k * 3$. Pero como esto no termina de cuadrar con los valores empíricos, se utiliza $2^{k+1} * 3$, que se aproxima más a los valores.
+
+
+\begin{table}[!h]
+  \centering
+\begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+\hline
+\textbf{N}     & \multicolumn{1}{c|}{\textbf{1}} & \multicolumn{1}{c|}{\textbf{4}} & \multicolumn{1}{c|}{\textbf{7}} & \multicolumn{1}{c|}{\textbf{12}} & \multicolumn{1}{c|}{\textbf{21}} \\ \hline
+\textbf{k}     & \multicolumn{1}{c|}{\textbf{0}} & \multicolumn{1}{c|}{\textbf{1}} & \multicolumn{1}{c|}{\textbf{2}} & \multicolumn{1}{c|}{\textbf{3}} & \multicolumn{1}{c|}{\textbf{4}} \\ \hline
+\textbf{Pasos} & \multicolumn{1}{c|}{4}          & \multicolumn{1}{c|}{13}          & \multicolumn{1}{c|}{29}         & \multicolumn{1}{c|}{57}         & \multicolumn{1}{c|}{109} \\ \hline
+\textbf{$2^{k+1} * 3$} & \multicolumn{1}{c|}{6}          & \multicolumn{1}{c|}{12}          & \multicolumn{1}{c|}{24}         & \multicolumn{1}{c|}{48}         & \multicolumn{1}{c|}{96} \\ \hline
+\textbf{Pasos - $2^{k+1} * 3$} & \multicolumn{1}{c|}{-2}          & \multicolumn{1}{c|}{1}          & \multicolumn{1}{c|}{5}         & \multicolumn{1}{c|}{9}         & \multicolumn{1}{c|}{13} \\ \hline
+
+\textbf{Diferencia 1}                  &                                                         & 3                                                       & 4                               & 4                              &   4                           \\ \hline
+\textbf{Diferencia 2}                  &                                                         & \multicolumn{1}{r|}{1}                                  & \multicolumn{1}{r|}{0}          & \multicolumn{1}{r|}{0}       &                         \\ \hline
+\end{tabular}
+\caption{Ampliación y cálculo de diferencias finitas nuevas}
+\label{tab:difUlt2}
+\end{table}
+
+
+En la tabla \ref{tab:difUlt2} se puede ver que haciendo las diferencias finitas a la resta se obtienen finalmente valores constantes en la diferencia 1.
+
+
+
+$$ T'(k) = ak + b $$
+
+$$ T'(1) = a + b = 1$$
+$$ T'(2) = 2a + b = 5$$
+
+$$ a = 4 , \quad b = -3$$
+
+$$ T'(k) = 4k - 3 $$
+
+Por tanto:
+
+$$ T(k) = 2^{k+1} * 3 + 4k - 3 $$
+
+y coincide con los valores obtenidos empíricamente.
+
+\vspace{2mm}
+
+Dado que la complejidad está definida sobre $k$, se calcula la cota superior asintótica $g(k)$ usando $k_0 = 10$.
+
+$$ g(k) = c*2^k $$
+
+$$ g(k) > T(k) $$
+
+$$ c*2^k > 2^{k+1} * 3 + 4k - 3 $$
+
+$$ c*2^{10} > 2^{11} * 3 + 4*10 - 3 $$
+
+$$ c*2^{10} > 6181 $$
+$$ c > \frac{6181}{2^{10}} $$
+$$ c > \frac{6181}{1024} $$
+$$ c > 6.036 $$
+
+$$ c = 6.037 $$
+
+$$ g(k) = 6.037*2^k $$
+
+\vspace{2mm}
+
+
 
 
 
