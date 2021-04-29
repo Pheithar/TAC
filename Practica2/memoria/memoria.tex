@@ -63,7 +63,7 @@
 
   \vspace{55mm}
 
-  \authors{Iván Miguelez García}{100383387}{Alba Reinders Sánchez}{100383444}{Alejandro Valverde Mahou}{100383383}{}{}
+  \authors{Iván Miguélez García}{100383387}{Alba Reinders Sánchez}{100383444}{Alejandro Valverde Mahou}{100383383}{}{}
 
   \newpage
 
@@ -196,7 +196,6 @@
     \caption{MT Determinista de 2 cintas - Palíndromos}
   \end{figure}
 
-  \newpage
 
   \subsubsection{Determinación del Peor Caso}
 
@@ -219,7 +218,7 @@
   \caption{Peor caso}
   \end{table}
 
-
+  \newpage
   \subsubsection{Simulación con Diferentes Tamaños}
 
   \begin{table}[!h]
@@ -310,7 +309,7 @@
 
   \subsubsection{Determinación del Peor Caso}
 
-  En este caso, todos los ejemplos del mismo tamaño tardan lo mismo, independientemente de si son palíndromos o no. Por ese motivo no es necesario realizar la comprobación para determinar el peor caso.
+  Dado que esta MT tan solo reconoce palíndromos, se toma como peor caso el único caso reconocido por la máquina: palíndromos de tamaño par.
 
   \subsubsection{Simulación con Diferentes Tamaños}
 
@@ -689,6 +688,144 @@
   \end{table}
 
 
+  El calculo de las diferencias finitas es inconcluyente dado que no se consigue apreciar ningún patron representativo. Por ese motivo se plantea realizar un estudio analítico sobre esta máquina.
+
+  \vspace{2mm}
+
+  La MT está compuesta por un bucle inicial y una parte adicional que limpia la cinta y mantiene el resultado final. El bucle a su vez está compuesto por un primer paso que requiere de ir desde la izquierda del todo de la cinta a la parte derecha. Después se resta '1' siguiendo la aritmética de Peano, realizando acarreos cuando es pertinente. A continuación se queda en el último dígito del primer término, y realiza una suma, nuevamente con accarreo cuando es necesario.
+
+  \vspace{2mm}
+
+  La primera vez que se va hacia la derecha, tiene un coste de $n$. Posteriormente, se vuelve hasta la izquierda del todo al hacer la resta del segundo término, con un coste nuevamente de $n$. La suma en el primer término es un cálculo variable, e inicialmente se desprecia. El bucle se tiene que realizar tantas veces como valor tenga en binario, y dado que este término está compuesto por '1's únicamente, y tiene un tamaño de $n-1$, el bucle se realiza $2^{n-1}-1$ veces.
+
+  \vspace{2mm}
+
+  Por otro lado, la parte final del algoritmo requiere de ir hasta la derecha del todo nuevamente ($n$), volver hacia a la izquierda acarreando en la resta ($n$), una vez más va hacia la derecha para ponerse en la parte final ($n$), se vuelve borrando hacia la izquierda para eliminar el segundo término ($n$) y se recorre hacia la izquierda hasta ponerse en el inicio del resultado, quie tiene un tamaño $n$ dado que tiene que dar lo mismo que la entrada inicial.
+
+  \vspace{2mm}
+
+
+  Analizando la complejidad de la máquina, se concluye inicialmente que es:
+
+  $$5n + ((2^{n-1}) - 1) * 2n$$
+
+
+
+    Sin embargo, a la hora de aplicar la función anterior, queda lo siguiente en pasos esperados:
+
+
+    \begin{table}[!h]
+      \centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \textbf{Entrada} & \textbf{Tamaño} & \textbf{Pasos Obtenido} & \textbf{Pasos Esperado} & \textbf{Resta}\\ \hline
+    \$1              & 2               & 17                      & 14                        &  3             \\ \hline
+    \$11             & 3               & 42                      & 33                        &  9             \\ \hline
+    \$111            & 4               & 99                      & 76                        &  23             \\ \hline
+    \$1111           & 5               & 228                     & 175                       &  53           \\ \hline
+    \$11111          & 6               & 517                     & 402                       &  115         \\ \hline
+    \end{tabular}
+    \caption{Cálculo de complejidad $T(n)$ con estudio analítico}
+    \end{table}
+
+
+    Para comprobar que es lo que le falta a esta función, se realizan diferencias finitas sobre la resta entre lo obtenido y lo esperado.
+
+
+
+    \begin{table}[!h]
+      \centering
+    \begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+    \hline
+    \textbf{N}     & \multicolumn{1}{c|}{\textbf{2}} & \multicolumn{1}{c|}{\textbf{3}} & \multicolumn{1}{c|}{\textbf{4}} & \multicolumn{1}{c|}{\textbf{5}} & \multicolumn{1}{c|}{\textbf{6}} \\ \hline
+    \textbf{Resta} & \multicolumn{1}{c|}{3}& \multicolumn{1}{c|}{9}& \multicolumn{1}{c|}{23}& \multicolumn{1}{c|}{53}& \multicolumn{1}{c|}{115} \\ \hline
+    \textbf{Diferencia 1}& & 6& 14& 30& 62\\ \hline
+    \textbf{Diferencia 2} & &\multicolumn{1}{r|}{8} &\multicolumn{1}{r|}{16} &\multicolumn{1}{r|}{32} & \\ \hline
+    \end{tabular}
+    \caption{Diferencias finitas}
+    \end{table}
+
+    Se obtiene una diferencia que coindice con un crecimiento exponencial (potencia perfecta de $2^n$ en la Diferencia 2), lo que significa que aún se puede ajustar la complejidad un poco más. En este caso, la nueva función quedaría como $5n + ((2^{n-1}) - 1) * 2n + 2^{n+1}$, ya que para $n = 1$ no se aplica esta complejidad (por el hecho de que un input de tamaño 1 es simplemente un \$ y no hay operaciones que hacer).
+
+    \vspace{2mm}
+
+    Aún así hay un pequeño desajuste entre la función obtenida actualmente y los valores obtenidos empíricamente:
+
+    \begin{table}[!h]
+      \centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \textbf{Entrada} & \textbf{Tamaño} & \textbf{Pasos Obtenido} & \textbf{Pasos Esperado} & \textbf{Resta}\\ \hline
+    \$1              & 2               & 17                      & 22                        & -5             \\ \hline
+    \$11             & 3               & 42                      & 49                        &  -7             \\ \hline
+    \$111            & 4               & 99                      & 108                        &  -9             \\ \hline
+    \$1111           & 5               & 228                     & 239                       &  -11           \\ \hline
+    \$11111          & 6               & 517                     & 530                       &  -13         \\ \hline
+    \end{tabular}
+    \caption{Cálculo de complejidad $T(n)$ con estudio analítico y exponencial}
+    \end{table}
+
+    Por tanto, se vuelvenm a realizar diferencias finitas sobre la resta.
+
+    \begin{table}[!h]
+      \centering
+    \begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+    \hline
+    \textbf{N}     & \multicolumn{1}{c|}{\textbf{2}} & \multicolumn{1}{c|}{\textbf{3}} & \multicolumn{1}{c|}{\textbf{4}} & \multicolumn{1}{c|}{\textbf{5}} & \multicolumn{1}{c|}{\textbf{6}} \\ \hline
+    \textbf{Resta} & \multicolumn{1}{c|}{-5}& \multicolumn{1}{c|}{-7}& \multicolumn{1}{c|}{-9}& \multicolumn{1}{c|}{-11}& \multicolumn{1}{c|}{-13} \\ \hline
+    \textbf{Diferencia 1}& & -2& -2& -2& -2\\ \hline
+    \textbf{Diferencia 2} & &\multicolumn{1}{r|}{0} &\multicolumn{1}{r|}{0} &\multicolumn{1}{r|}{0} & \\ \hline
+    \end{tabular}
+    \caption{Diferencias finitas}
+    \end{table}
+
+
+    Ahora sí se ha llegado a una diferencia finita con un crecimiento polinómico. Por lo tanto se tiene que la complejidad ahora es:
+    $$T(n) = an + b$$
+
+    $$T(2) = 2n + b = -5$$
+    $$T(3) = 3a + b = -7$$
+
+
+    $$ a = -2 ;\quad b = -1$$
+
+    Por tanto, la complejidad final es:
+
+    $$ T(n) = 5n + ((2^{n-1}) - 1) * 2n + 2^{n+1} - 2n -1$$
+
+
+    que comparando con los valores obtenidos empíricamente, resultan ser los mismos pasos, por lo que se puede decir que la complejidad final simplificando sale:
+
+    $$T(n) = 3n + ((2^{n-1}) - 1) * 2n + 2^{n+1} - 1$$
+    $$T(n) = 3n + (\frac{2^n}{2} - 1) * 2n + 2*2^n - 1$$
+    $$T(n) = 3n + 2n*\frac{2^n}{2} - 2n + 2*2^n - 1$$
+    $$T(n) = 3n + n*2^n - 2n + 2*2^n - 1$$
+    $$T(n) = n + n*2^n + 2*2^n - 1$$
+
+
+
+    $$T(n) = 2^n*(n + 2) + n - 1$$
+
+    Por tanto, $g(n)$ tiene una forma $g(n) = k*n*2^n$
+
+    $$g(n) > T(n)$$
+
+    $$k*n*2^n > 2^n * (n + 2) + n - 1$$
+    $$k > \frac{n + 2}{n} + \frac{1}{2^n} - \frac{1}{n*2^n}$$
+
+    y con $n_0 = 10$
+
+    $$k > \frac{10 + 2}{10} + \frac{1}{2^{10}} - \frac{1}{10*2^{10}}$$
+    $$k > \frac{12}{10} + \frac{1}{1024} - \frac{1}{10240}$$
+    $$k > 1.20087$$
+
+    $$ k = 1.21$$
+
+    $$g(n) = 1.21*n*2^n$$
+
+
+
+
 
 
 
@@ -702,8 +839,11 @@
     \caption{MT Determinista de 2 cintas - Suma de enteros en base DOS}
   \end{figure}
 
+  \newpage
 
   \subsubsection{Determinación del Peor Caso}
+
+  En esta MT el peor caso vuelve a ser cuando el término de la izquierda esta vacío y el término de la derecha está compuesto únicamente por '1'.
 
   \begin{table}[!h]
     \centering
@@ -753,15 +893,30 @@
 
   \begin{table}[!h]
     \centering
-  \begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+  \begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
   \hline
-  \textbf{N}     & \multicolumn{1}{c|}{\textbf{3}} & \multicolumn{1}{c|}{\textbf{4}} & \multicolumn{1}{c|}{\textbf{5}} & \multicolumn{1}{c|}{\textbf{6}} & \multicolumn{1}{c|}{\textbf{7}} \\ \hline
-  \textbf{Pasos} & \multicolumn{1}{c|}{11}          & \multicolumn{1}{c|}{16}          & \multicolumn{1}{c|}{21}         & \multicolumn{1}{c|}{26}         & \multicolumn{1}{c|}{31} \\ \hline
-  \textbf{Diferencia 1}                  &                                                         & 5                                                       & 5                               & 5                              &   5                           \\ \hline
-  \textbf{Diferencia 2}                  &                                                         & \multicolumn{1}{r|}{0}                                  & \multicolumn{1}{r|}{0}          & \multicolumn{1}{r|}{0}       &                         \\ \hline
+  \textbf{N}     & \multicolumn{1}{c|}{\textbf{1}} & \multicolumn{1}{c|}{\textbf{2}} & \multicolumn{1}{c|}{\textbf{3}} & \multicolumn{1}{c|}{\textbf{4}} & \multicolumn{1}{c|}{\textbf{5}} & \multicolumn{1}{c|}{\textbf{7}}\\ \hline
+  \textbf{Pasos} & \multicolumn{1}{c|}{6}          & \multicolumn{1}{c|}{11}          & \multicolumn{1}{c|}{28}         & \multicolumn{1}{c|}{69}         & \multicolumn{1}{c|}{166} & \multicolumn{1}{c|}{391} \\ \hline
+  \textbf{Diferencia 1}& & 5 & 17 & 41 & 97 & 225\\ \hline
+  \textbf{Diferencia 2}& & \multicolumn{1}{r|}{12}& \multicolumn{1}{r|}{24}& \multicolumn{1}{r|}{56} & \multicolumn{1}{r|}{128} & \\ \hline
   \end{tabular}
   \caption{Diferencias finitas}
   \end{table}
+
+  En la tabla de diferencias finitas no se encuentra ni valor constante ni exponenciales perfectas por lo que se decide realizar un estudio analítico de la máquina.
+
+  \vspace{2mm}
+
+  Inicialmente la máquina recorre toda la cinta hasta la derecha del todo, copiando el segundo término en la cinta, lo cual tiene una complejidad de $n$. A continuación se borra el segundo término de la cinta 1, con un coste de $n-1$.
+
+  \vspace{2mm}
+
+  A continuación comienza el bucle de la aritméticas de Peano. Este bucle se realiza, al igual que para el caso anterior $ (2^{n-1} -1) $ veces. Dentro de este bucle es necesario ir hasta la izquierda completamente, con coste $n$, y de vuelta hacia la derecha, con otro coste $n$, porque, aunque no haya acarreo, siempre se va hasta el final de la palabra. Esto, a pesar de ser ineficiente, se hace por sinmplificar el problema y facilitar su análisis. Por tanto, la complejidad del bucle es:
+
+  $$ (2^{n-1} -1)*2n $$
+
+
+
 
 
 
@@ -776,7 +931,7 @@
 
   \clearpage
 
-  \section{Comparativa de los Ejercicios 1 y 2}
+  \section{Comparativa de las MT de suma de base UNO y suma de base DOS}
 
   \begin{table}[!h]
     \centering
