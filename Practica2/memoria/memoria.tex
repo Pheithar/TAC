@@ -75,6 +75,18 @@
   %Comienzo formato documento general
   \mainmatter
 
+
+  \section{Introducción}
+
+  En esta memoria se proponen diversas soluciones a los problemas planteados en el enunciado de la práctica, junto con un análisis computacional de cada una de las máquinas de Turing diseñadas.
+
+  \vspace{2mm}
+
+  Estos análisis no siempre se llevan a cabo mediante el cálculo de diferencias finitas, ya que la complejidad de las máquinas no siempre será polinómica. También se realiza una comparación entre las máquinas de una y dos cintas, como deterministas y no deterministas, con el fin de observar si se ha producido alguna mejora en el coste computacional y de qué mejora se trata.
+
+
+  \newpage
+
   \section{Palíndromos I}
 
   \subsection{MT Determinista de 1 cinta}
@@ -916,17 +928,96 @@
   $$ (2^{n-1} -1)*2n $$
 
 
+  Pero al compararse con los valores obtenidos, se puede apreciar que los valores no salen exactos usando esta función.
 
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|c|c|c|c|}
+  \hline
+  \textbf{Entrada} & \textbf{Tamaño} & \textbf{Pasos Obtenido} & \textbf{Pasos Esperado} & \textbf{Resta}\\ \hline
+  \$              & 1               & 6                      & 0                        &  6             \\ \hline
+  \$1             & 2               & 11                      & 4                        &  7             \\ \hline
+  \$11            & 3               & 28                      & 18                        &  10             \\ \hline
+  \$111           & 4               & 69                     & 56                       &  13          \\ \hline
+  \$1111          & 5               & 166                     & 150                       &  16        \\ \hline
+  \$11111          & 6               & 391                     & 372                       &  19        \\ \hline
+  \end{tabular}
+  \caption{Cálculo de complejidad $T(n)$ con estudio analítico}
+  \end{table}
+
+
+  Por tanto se realiza las diferencias finitas sobre la diferencia entre lo esperado y lo obtenido.
+
+
+
+
+  \begin{table}[!h]
+    \centering
+  \begin{tabular}{|c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+  \hline
+  \textbf{N}     & \multicolumn{1}{c|}{\textbf{1}} & \multicolumn{1}{c|}{\textbf{2}} & \multicolumn{1}{c|}{\textbf{3}} & \multicolumn{1}{c|}{\textbf{4}} & \multicolumn{1}{c|}{\textbf{5}} & \multicolumn{1}{c|}{\textbf{6}} \\ \hline
+  \textbf{Resta} & \multicolumn{1}{c|}{6}& \multicolumn{1}{c|}{7}& \multicolumn{1}{c|}{10}& \multicolumn{1}{c|}{13}& \multicolumn{1}{c|}{16} & \multicolumn{1}{c|}{19}\\ \hline
+  \textbf{Diferencia 1}& & 1& 3& 3& 3& 3\\ \hline
+  \textbf{Diferencia 2}& & \multicolumn{1}{r|}{2}& \multicolumn{1}{r|}{0}& \multicolumn{1}{r|}{0} & \multicolumn{1}{r|}{0} & \\ \hline
+  \end{tabular}
+  \caption{Diferencias finitas}
+  \end{table}
+
+  Se puede apreciar que en la diferencia 1 se obtiene un valor constante, por tanto se puede decir que $T(n)$ es:
+
+  $$ T'(n)=an + b $$
+
+  $$ T'(2) = 2a + b = 7$$
+  $$ T'(3) = 3a + b = 10$$
+
+  $$ a = 3 ;\quad b = 1 $$
+
+  $$ T'(n) = 3n + 1 $$
+
+  Por tanto el $T(n)$ total es:
+
+  $$ T(n) = (2^{n-1} - 1) * 2n + 3n + 1 $$
+
+  y simplificando:
+
+  $$ T(n) = 2n*\frac{2^n}{2} - 2n + 3n + 1 $$
+  $$ T(n) = n* 2^n + n + 1 $$
+  $$ T(n) = n*(2^n + 1) + 1 $$
+
+  \vspace{2mm}
+
+  $$ g(n) = k*n*2^n $$
+
+  $$ g(n) > T(n) $$
+  $$ k*n*2^n > n*(2^n + 1) + 1 $$
+  $$ k > \frac{2^n + 1}{2^n} + \frac{1}{n*2^n} $$
+
+  y con $n_0 = 10$
+
+
+  $$ k > \frac{2^{10} + 1}{2^{10}} + \frac{1}{10*2^{10}} $$
+  $$ k > \frac{1025}{1024} + \frac{1}{10240} $$
+  $$ k > 1.00107 $$
+
+  $$ k = 1.01 $$
+
+  $$g(n) = 1.01 * n * 2^n$$
 
 
 
 
   \subsection{Evaluación de la mejora obtenida con la MT de 2 cintas}
 
+  Ambas máquinas comparten una complejidad similar de $O(n) = n*2^n$. Muy probablemente la complejidad de la máquina con 2 cintas podría reducirse a una complejidad $O(n) = 2^n$ o similar, pero, tal y como se ha mencionado, con el objetivo de simplificar y facilitar su análisis, se opta por un diseño menos óptimo.
 
+  \vspace{2mm}
 
+  Por este motivo, tienen una complejidad muy similar, tal y como se puede ver en la gráfica.
 
-
+  \begin{figure}[!h]
+    \imgcenter[160]{Images/comparativaDOS.png}
+    \caption{Comparativa MT 1 cinta vs. MT 2 cintas}
+  \end{figure}
 
 
   \clearpage
@@ -1359,6 +1450,21 @@ $$ g(k) = 6.037*2^k $$
 \end{figure}
 
 En la figura \ref{fig:comparativaMTNoDet} se observa que el número de pasos que requiere la MT determinista es mucho mayor que la MT no determinista según se aumenta el tamaño de $n$, por lo tanto se puede afirmar que se ha encontrado una mejora con esta última máquina. A pesar de que ambas tengan complejidad exponencial, la máquina determinista tiene un crecimiento mucho más rápido.
+
+\vspace{2mm}
+
+Aún así, el hecho de ser una máquina no determinista tiene una complejidad intrínseca añadida, ya que para encontrar el resultado tiene que realizar una búsqueda entre las posibles acciones que puede realizar la máquina, haciendo que requieran un menor número de pasos para encontrar la solución, pero que los recursos computacionales utilizados para encontrarla sean mayores.
+
+\newpage
+
+\section{Conclusión}
+
+El hecho de utilizar dos cintas en vez de una, consigue reducir la complejidad de las máquinas que poseen una complejidad polinómica de grado 2 a grado 1. Sin embargo, en el caso de aquellas máquinas que presentan una complejidad exponencial, la mejora es menos notable.
+
+\vspace{2mm}
+
+En esta práctica se han intentado diseñar máquinas de Turing de la manera más eficientemente posible, aunque nuestro énfasis ha estado principalmente en encontrar con la mayor precisión posible la complejidad de cada una de ellas. Por eso en algunos casos se ha decidido eliminar o no incorporar distintas mejoras que dificultarían en gran medida el estudio empírico y/o analítico de las máquinas.
+
 
 
 \end{document}
