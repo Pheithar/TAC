@@ -1,0 +1,106 @@
+\documentclass{uc3mpracticas}
+
+\usepackage{helvet}
+\usepackage{multicol}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{changepage}
+\usepackage{geometry}
+\usepackage{caption}
+\usepackage{xcolor,colortbl}
+\usepackage{makecell}
+\usepackage{mathtools}
+
+\usepackage{amsfonts}
+
+\definecolor{Gray}{gray}{0.85}
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+\definecolor{LightGreen}{rgb}{0.29,1,0.39}
+
+\newcolumntype{g}{>{\columncolor{Gray}}l}
+\newcolumntype{b}{>{\columncolor{LightCyan}}c}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                   Plantilla Prácticas UC3M                               %%%
+%%%                Universidad Carlos III de Madrid                          %%%
+%%%                   Alejandro Valverde Mahou                               %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Permitir cabeceras y pie de páginas personalizados
+\pagestyle{fancy}
+
+%Path por defecto de las imágenes
+\graphicspath{ {./images/} }
+
+%Declarar formato de encabezado y pie de página de las páginas del documento
+\fancypagestyle{doc}{
+  %Cabecera
+  \headerpr[1]{Máquinas de Turing}{}{Teoría Avanzada de la Computación}
+  %Pie de Página
+  \footerpr{}{\textbf{UC3M}}{{\thepage} de \pageref{LastPage}}
+}
+
+%Declarar formato de encabezado y pie del título e indice
+\fancypagestyle{titu}{%
+  %Cabecera
+  \headerpr{}{}{}
+  %Pie de Página
+  \footerpr{}{}{}
+}
+
+
+\appto\frontmatter{\pagestyle{titu}}
+\appto\mainmatter{\pagestyle{doc}}
+
+
+\begin{document}
+  %Comienzo formato título
+  \frontmatter
+
+
+  %Portada 1 (Centrado todo)
+  \centeredtitle{Images/LogoUC3M.png}{Grado en Ingeniería Informática}{Curso 2020/2021}{Teoría Avanzada de la Computación}{Máquinas de Turing}{}
+
+  \vspace{55mm}
+
+  \authors{Iván Miguélez García}{100383387}{Alba Reinders Sánchez}{100383444}{Alejandro Valverde Mahou}{100383383}{}{}
+
+  \newpage
+
+  %Índice
+  \tableofcontents
+
+\newpage
+
+  %Comienzo formato documento general
+  \mainmatter
+
+  \section{Búsqueda basada en \textit{Backtracking}}
+
+  Búsqueda basada en Backtracking o equivalente iterativa. Explorar la posibilidad de mejora mediante una heurística sencilla o aplicando criterios de poda. En este caso se busca garantizar siempre una solución óptima. Será difícil encontrar soluciones para problemas de tamaños n mayores a 14 … 20.
+
+  \subsection{Coste Computacional}
+
+  \subsubsection{Estudio Analítico}
+
+  \subsubsection{Estudio Empírico}
+
+  \subsubsection{Estudio Combinado}
+  
+
+
+
+
+  \section{Búsqueda local}
+
+  Búsqueda local. Partiendo de la solución de un algoritmo greedy [1], aplicar el operador 2-opt [2]. En este caso, no se podrá garantizar una solución óptima, pero se podrá estudiar qué calidad puede proporcionar el método (en \% de desviación respecto al recorrido óptimo) en un tiempo razonable.
+
+  \subsubsection{Estudio Analítico}
+
+  \subsubsection{Estudio Empírico}
+
+  \subsubsection{Estudio Combinado}
+
+
+
+\end{document}
