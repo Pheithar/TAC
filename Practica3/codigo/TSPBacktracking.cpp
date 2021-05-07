@@ -1,6 +1,9 @@
 #include <iostream>
 #include <stack>
 #include <string.h>
+#include <fstream>
+#include <vector>
+#include <string>
 using namespace std;
 
 
@@ -9,21 +12,16 @@ class Node{
     int id;
     int city_id;
     int g;
-    Node *parent;
     int *to_visit;
+    int *order;
   public:
     Node(){};
-    Node(int i, int c, int cost, Node *p, int *t) {
+    Node(int i, int c, int cost, int *t, int *o) {
       id = i;
       city_id = c;
       g = cost;
-      parent = p;
-      to_visit = t;
-      if(id != 0) {
-        cout << "Me he creado y mi padre es " << parent->get_id() << endl;
-        cout << "Yo soy " << id << endl;
-      }
-     
+      to_visit = t;     
+      order = o;
     }
 
     int get_id() {
@@ -38,15 +36,15 @@ class Node{
       return g;
     }
 
-    Node* get_parent() {
-      return parent;
-    }
-
     int* get_to_visit() {
       return to_visit;
     }
-};
 
+    int* get_order() {
+      return order;
+    }
+
+};
 
 class Problem
 {
@@ -56,6 +54,8 @@ private:
   int **map;
   int map_size;
   int id_count;
+  int best_path_cost;
+  int *best_path;
 public:
   Problem(Node r, int **m, int size) {
     root = r;
@@ -63,6 +63,8 @@ public:
     map = m;
     map_size = size;
     id_count = root.get_id();
+    best_path_cost = -1;
+    best_path = new int[map_size];
   }
   stack<Node> get_not_visited() {
     return not_visited;
@@ -85,19 +87,26 @@ public:
 
           int sum_cost = parent.get_g() + map[parent.get_city_id()][i];
           int *new_to_visit = new int [map_size];
+          int *new_order = new int [map_size];
+          int flag_order = 0;
 
           for(int j = 0; j < map_size; j++){
             new_to_visit[j] = parent.get_to_visit()[j];
+            new_order[j] = parent.get_order()[j];
+            if(new_order[j] == -1 && !flag_order){
+              new_order[j] = i;
+              flag_order = 1;
+            }
           }
           new_to_visit[i] = 1;
+          
 
-          Node child(id_count, i, sum_cost, &parent, new_to_visit);
+          Node child(id_count, i, sum_cost, new_to_visit, new_order);
 
-          cout << "Dir " << parent.get_parent() << " " << &parent << endl;
            
           if (verbose) {
-            cout << "Nodo padre: " << child.get_parent()->get_id() << " Nodo hijo: " << child.get_id() <<
-            " Ciudad padre: " << child.get_parent()->get_city_id()<< " Ciudad hijo: " << child.get_city_id() << endl;
+            cout << "Nodo padre: " << parent.get_id() << " Nodo hijo: " << child.get_id() <<
+            " Ciudad padre: " << parent.get_city_id()<< " Ciudad hijo: " << child.get_city_id() << endl;
           }
           
           
@@ -108,138 +117,99 @@ public:
         }        
       }
     
-
       if (verbose) {
         cout << "Ciudad " << parent.get_city_id() << " visitada" << endl;
       }
 
       if (!has_child) {
-        cout << "Coste " << parent.get_id() << " = " << parent.get_g() + map[parent.get_city_id()][root.get_city_id()] << endl;
 
-        Node up_stack = parent;
-        int * path = new int [map_size];
-        int counter = 0;
-        Node a = *up_stack.get_parent();
-        cout << up_stack.get_city_id() << endl;
-        cout << a.get_parent()->get_city_id() << endl;
-
-        /*while (up_stack.get_parent() != NULL) {
-          path[counter] = up_stack.get_city_id();
-          delete &up_stack;
-          up_stack = *up_stack.get_parent();
-          cout << up_stack.get_city_id() << endl;
-        }*/
-        cout << "Voy caminando por la vida: " << endl;
-        for (int i = 0; i < map_size; i++) {
-          cout << "Camino " << i << " - " << path[i] << endl;
+        int p_cost = parent.get_g() + map[parent.get_city_id()][root.get_city_id()];
+                
+        if (best_path_cost > p_cost || best_path_cost == -1) {
+          best_path_cost = p_cost;
+          best_path = parent.get_order();
         }
 
-      }
 
-      
+      }
     }
+
+    cout << "Mejor camino: ";
+    for (int i = 0; i < map_size; i++) {
+          cout << best_path[i] << " - ";
+    }
+    cout << root.get_city_id() << endl;
+    cout << "Coste: " << best_path_cost << endl;
+    
+    
+
 
     return 0;
   }
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-class Problem1{
-  private:
-    int **map;
-    int map_size;
-    Node root;
-    int id_count;
-    stack<int> visited;
-    
-  public:
-    Problem1(int **m, int size, Node r, int i){
-      map = m;
-      map_size = size;
-      root = r;
-      id_count = i;
-      visited = new int [map_size];
-      not_
+int** parse_input(string path, int size, bool verbose = false) {
+  ifstream f(path);
+  string l;
+  string aux;
+  int count = 0;
+  int **map = new int *[size];
+  int pos_init = 0;
+  int pos_found = 0;
+  
+  for(int i = 0; i < size; i++) {
+    getline(f, l);
+    map[count] = new int [size];
+    for (int j = 0; j < size; j++) {
+      pos_found = l.find(",", pos_init);
+      aux = l.substr(pos_init, pos_found - pos_init);
+      pos_init = pos_found + 1;
+      map[count][j] = stoi(aux); 
     }
-
-    int* get_visited(){
-      return visited;
-    }
-    
-    int create_node_stack(int id, int city, int cost, int parent, bool verbose = false) {
-      
-    }
-    int create_children(int id, int city, int cost, int parent, bool verbose = false) {
-      cout << "-------------------------" << endl;
-      
-      Node p(id, city, cost, parent);
-      
-      visited[city] = 1;
-      
-      for(int j = 0; j < map_size; j++){
-        cout << "La ciudad " << j << " ha sido visitada: " << visited[j] << endl;
-      }
-      
-      for(int i = 0; i < map_size; i++){        
-        if(visited[i] != 1){
-          
-          int sum_cost = p.get_g() + map[p.get_city_id()][i];
-
-          Node child(id_count, i, sum_cost, p.get_id());
-          id_count++;
-          
-          if (verbose) cout << "Nodo padre: " << p.get_id() << " Nodo hijo: " << id_count << " Ciudad padre: " << p.get_city_id() << " Ciudad hijo: " << i << endl;
-          
-          create_children(id_count, child.get_city_id(), child.get_g(), child.get_id(), verbose);
-        }
-      }
-      return 0;
-    }
-};
-*/
-
-int main() {
-
-  int m[4][4] = { {0, 1, 1, 1}, {1, 0, 1, 1}, {1, 1, 0, 1}, {1, 1, 1, 0} };
-  int **cities;
-  cities = new int * [4];
-
-  for(int i = 0; i < 4; i++){
-    cities[i] = new int [4];
-    for(int j = 0; j < 4; j++){
-      cities[i][j] = m[i][j];
-    }
+    count++; 
   }
-  int start = 0;
 
-  int *to_visit = new int [4];
-  to_visit[0] = 1;
+  if (verbose) {
+    for (int i = 0; i < size; i++) {
+    for(int j = 0; j < size; j++){
+      cout << map[i][j] << " ";
+    }
+    cout << endl;
+  }
+  }
   
-  Node root(0, start, 0, NULL, to_visit);
 
+  f.close();
+  return map;
+}
 
-  Problem problem(root, cities, 4);
+int main(int argc, char const *argv[]) {
+
+  int size = stoi(argv[2]);
+
+  int **cities = parse_input(argv[1], size);
+  int start = stoi(argv[3]);
+
+  int *to_visit = new int [size];
+  int *order = new int [size];
+
+  for (int i = 0; i < size; i++)
+  {
+    order[i] = -1;
+    to_visit[i] = 0; 
+  }
+  
+  to_visit[start] = 1;
+  order[0] = start;
+  
+  Node root(0, start, 0, to_visit, order);
+  
+
+  Problem problem(root, cities, size);
 
   
-  //int a = problem.create_children(id_count, start, 0, -1, true);
-  problem.DFS(true);
-
-  //cout << problem.get_not_visited().top().get_id() << endl;
-  //cout << problem.get_not_visited().top().get_parent() << endl;
+  problem.DFS();
 
   return 0;
 }

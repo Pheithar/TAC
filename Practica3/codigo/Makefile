@@ -27,9 +27,9 @@ run:
 	@./TSPLocal.out
 
 run_back:
-	@echo "Ejecutando TSPBacktracking"
+	@echo "Ejecutando TSPBacktracking" 
 	@echo
-	@./TSPBacktracking.out
+	@./TSPBacktracking.out mapa_prueba.txt 4 0
 
 run_local:
 	@echo "Ejecutando TSPLocal"
