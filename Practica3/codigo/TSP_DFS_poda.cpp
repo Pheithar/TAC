@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <time.h>
 using namespace std;
 
 
@@ -65,14 +66,15 @@ public:
     id_count = root.get_id();
     best_path_cost = -1;
     best_path = new int[map_size];
+
   }
   stack<Node> get_not_visited() {
     return not_visited;
   }
 
   int DFS(bool verbose = false) {
-    while (!not_visited.empty()){
-      Node parent = not_visited.top();
+    
+    while (!not_visited.empty()){      Node parent = not_visited.top();
 
       not_visited.pop();
 
@@ -101,17 +103,21 @@ public:
           new_to_visit[i] = 1;
           
 
-          Node child(id_count, i, sum_cost, new_to_visit, new_order);
 
-           
-          if (verbose) {
-            cout << "Nodo padre: " << parent.get_id() << " Nodo hijo: " << child.get_id() <<
-            " Ciudad padre: " << parent.get_city_id()<< " Ciudad hijo: " << child.get_city_id() << endl;
+          if (sum_cost <= best_path_cost || best_path_cost == -1) {
+            Node child(id_count, i, sum_cost, new_to_visit, new_order);
+            not_visited.push(child);
+            
+            if (verbose) {
+              cout << "Nodo padre: " << parent.get_id() << " Nodo hijo: " << child.get_id() <<
+              " Ciudad padre: " << parent.get_city_id()<< " Ciudad hijo: " << child.get_city_id() << endl;
+            }
           }
           
           
           
-          not_visited.push(child);
+          
+          
 
           
         }        
@@ -186,6 +192,9 @@ int** parse_input(string path, int size, bool verbose = false) {
 
 int main(int argc, char const *argv[]) {
 
+  struct timespec begin, end; 
+  clock_gettime(CLOCK_REALTIME, &begin);
+  
   int size = stoi(argv[2]);
 
   int **cities = parse_input(argv[1], size);
@@ -210,6 +219,14 @@ int main(int argc, char const *argv[]) {
 
   
   problem.DFS();
+
+  clock_gettime(CLOCK_REALTIME, &end);
+
+  long seconds = end.tv_sec - begin.tv_sec;
+  long nanoseconds = end.tv_nsec - begin.tv_nsec;
+  double elapsed = seconds + nanoseconds*1e-9;
+
+  cout << "Tiempo: " << elapsed << endl;
 
   return 0;
 }

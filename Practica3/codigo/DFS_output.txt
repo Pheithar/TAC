@@ -1,0 +1,312 @@
+Mapa: mapas/t10-ns_1.txt
+Mejor camino: 0 - 1 - 4 - 3 - 5 - 2 - 7 - 8 - 6 - 9 - 0
+Coste: 20
+Tiempo: 0.307987
+
+Mapa: mapas/t10-ns_2.txt
+Mejor camino: 0 - 8 - 2 - 6 - 5 - 3 - 7 - 4 - 9 - 1 - 0
+Coste: 18
+Tiempo: 0.305683
+
+Mapa: mapas/t10-ns_3.txt
+Mejor camino: 0 - 9 - 3 - 2 - 5 - 7 - 6 - 8 - 1 - 4 - 0
+Coste: 25
+Tiempo: 0.304013
+
+Mapa: mapas/t10-s_1.txt
+Mejor camino: 0 - 6 - 3 - 8 - 5 - 7 - 9 - 2 - 1 - 4 - 0
+Coste: 26
+Tiempo: 0.298572
+
+Mapa: mapas/t10-s_2.txt
+Mejor camino: 0 - 7 - 9 - 8 - 1 - 6 - 5 - 3 - 4 - 2 - 0
+Coste: 22
+Tiempo: 0.29745
+
+Mapa: mapas/t10-s_3.txt
+Mejor camino: 0 - 9 - 5 - 2 - 6 - 1 - 4 - 8 - 3 - 7 - 0
+Coste: 24
+Tiempo: 0.299938
+
+Mapa: mapas/t11-ns_1.txt
+Mejor camino: 0 - 10 - 4 - 9 - 7 - 6 - 8 - 5 - 3 - 1 - 2 - 0
+Coste: 20
+Tiempo: 3.38552
+
+Mapa: mapas/t11-ns_2.txt
+Mejor camino: 0 - 7 - 8 - 1 - 9 - 10 - 5 - 6 - 2 - 4 - 3 - 0
+Coste: 18
+Tiempo: 3.06117
+
+Mapa: mapas/t11-ns_3.txt
+Mejor camino: 0 - 6 - 7 - 10 - 5 - 3 - 9 - 2 - 8 - 4 - 1 - 0
+Coste: 23
+Tiempo: 3.07401
+
+Mapa: mapas/t11-s_1.txt
+Mejor camino: 0 - 4 - 10 - 9 - 8 - 2 - 3 - 6 - 5 - 7 - 1 - 0
+Coste: 25
+Tiempo: 3.05673
+
+Mapa: mapas/t11-s_2.txt
+Mejor camino: 0 - 7 - 8 - 10 - 2 - 5 - 1 - 4 - 6 - 9 - 3 - 0
+Coste: 28
+Tiempo: 3.07353
+
+Mapa: mapas/t11-s_3.txt
+Mejor camino: 0 - 5 - 6 - 9 - 10 - 8 - 4 - 3 - 1 - 7 - 2 - 0
+Coste: 27
+Tiempo: 3.18363
+
+Mapa: mapas/t12-ns_1.txt
+Mejor camino: 0 - 9 - 1 - 6 - 2 - 3 - 8 - 7 - 5 - 10 - 4 - 11 - 0
+Coste: 20
+Tiempo: 35.0982
+
+Mapa: mapas/t12-ns_2.txt
+Mejor camino: 0 - 3 - 2 - 6 - 8 - 11 - 9 - 1 - 5 - 4 - 7 - 10 - 0
+Coste: 21
+Tiempo: 35.4376
+
+Mapa: mapas/t12-ns_3.txt
+Mejor camino: 0 - 7 - 4 - 3 - 1 - 9 - 5 - 11 - 8 - 2 - 6 - 10 - 0
+Coste: 23
+Tiempo: 34.9692
+
+Mapa: mapas/t12-s_1.txt
+Mejor camino: 0 - 11 - 3 - 4 - 6 - 5 - 1 - 10 - 8 - 9 - 2 - 7 - 0
+Coste: 23
+Tiempo: 35.0529
+
+Mapa: mapas/t12-s_2.txt
+Mejor camino: 0 - 8 - 10 - 3 - 5 - 9 - 1 - 2 - 11 - 7 - 6 - 4 - 0
+Coste: 19
+Tiempo: 35.1088
+
+Mapa: mapas/t12-s_3.txt
+Mejor camino: 0 - 10 - 4 - 3 - 8 - 11 - 2 - 1 - 7 - 5 - 6 - 9 - 0
+Coste: 27
+Tiempo: 35.0395
+
+Mapa: mapas/t13-ns_1.txt
+
+Mapa: mapas/t13-ns_2.txt
+
+Mapa: mapas/t13-ns_3.txt
+
+Mapa: mapas/t13-s_1.txt
+
+Mapa: mapas/t13-s_2.txt
+
+Mapa: mapas/t13-s_3.txt
+
+Mapa: mapas/t3-ns_1.txt
+Mejor camino: 0 - 1 - 2 - 0
+Coste: 9
+Tiempo: 0.00101701
+
+Mapa: mapas/t3-ns_2.txt
+Mejor camino: 0 - 1 - 2 - 0
+Coste: 9
+Tiempo: 0.000805497
+
+Mapa: mapas/t3-ns_3.txt
+Mejor camino: 0 - 2 - 1 - 0
+Coste: 14
+Tiempo: 0.000685921
+
+Mapa: mapas/t3-s_1.txt
+Mejor camino: 0 - 2 - 1 - 0
+Coste: 14
+Tiempo: 0.000673154
+
+Mapa: mapas/t3-s_2.txt
+Mejor camino: 0 - 2 - 1 - 0
+Coste: 27
+Tiempo: 0.000459502
+
+Mapa: mapas/t3-s_3.txt
+Mejor camino: 0 - 2 - 1 - 0
+Coste: 15
+Tiempo: 0.00050235
+
+Mapa: mapas/t4-ns_1.txt
+Mejor camino: 0 - 1 - 2 - 3 - 0
+Coste: 10
+Tiempo: 0.000132423
+
+Mapa: mapas/t4-ns_2.txt
+Mejor camino: 0 - 3 - 1 - 2 - 0
+Coste: 8
+Tiempo: 0.000536085
+
+Mapa: mapas/t4-ns_3.txt
+Mejor camino: 0 - 3 - 1 - 2 - 0
+Coste: 16
+Tiempo: 0.000654838
+
+Mapa: mapas/t4-s_1.txt
+Mejor camino: 0 - 3 - 2 - 1 - 0
+Coste: 10
+Tiempo: 0.000162922
+
+Mapa: mapas/t4-s_2.txt
+Mejor camino: 0 - 3 - 1 - 2 - 0
+Coste: 16
+Tiempo: 0.000618795
+
+Mapa: mapas/t4-s_3.txt
+Mejor camino: 0 - 2 - 3 - 1 - 0
+Coste: 17
+Tiempo: 0.000652656
+
+Mapa: mapas/t5-ns_1.txt
+Mejor camino: 0 - 3 - 4 - 1 - 2 - 0
+Coste: 16
+Tiempo: 0.000156719
+
+Mapa: mapas/t5-ns_2.txt
+Mejor camino: 0 - 3 - 4 - 1 - 2 - 0
+Coste: 19
+Tiempo: 0.000157905
+
+Mapa: mapas/t5-ns_3.txt
+Mejor camino: 0 - 3 - 2 - 1 - 4 - 0
+Coste: 20
+Tiempo: 0.000164349
+
+Mapa: mapas/t5-s_1.txt
+Mejor camino: 0 - 3 - 2 - 4 - 1 - 0
+Coste: 21
+Tiempo: 0.000155345
+
+Mapa: mapas/t5-s_2.txt
+Mejor camino: 0 - 4 - 3 - 2 - 1 - 0
+Coste: 26
+Tiempo: 0.000158368
+
+Mapa: mapas/t5-s_3.txt
+Mejor camino: 0 - 4 - 3 - 1 - 2 - 0
+Coste: 19
+Tiempo: 0.000152094
+
+Mapa: mapas/t6-ns_1.txt
+Mejor camino: 0 - 2 - 1 - 4 - 5 - 3 - 0
+Coste: 15
+Tiempo: 0.000214029
+
+Mapa: mapas/t6-ns_2.txt
+Mejor camino: 0 - 4 - 5 - 2 - 3 - 1 - 0
+Coste: 20
+Tiempo: 0.000250686
+
+Mapa: mapas/t6-ns_3.txt
+Mejor camino: 0 - 4 - 1 - 2 - 3 - 5 - 0
+Coste: 14
+Tiempo: 0.00022297
+
+Mapa: mapas/t6-s_1.txt
+Mejor camino: 0 - 3 - 5 - 1 - 4 - 2 - 0
+Coste: 12
+Tiempo: 0.000216274
+
+Mapa: mapas/t6-s_2.txt
+Mejor camino: 0 - 4 - 5 - 3 - 2 - 1 - 0
+Coste: 16
+Tiempo: 0.000208549
+
+Mapa: mapas/t6-s_3.txt
+Mejor camino: 0 - 5 - 2 - 4 - 1 - 3 - 0
+Coste: 20
+Tiempo: 0.000203844
+
+Mapa: mapas/t7-ns_1.txt
+Mejor camino: 0 - 1 - 4 - 3 - 5 - 2 - 6 - 0
+Coste: 15
+Tiempo: 0.000645466
+
+Mapa: mapas/t7-ns_2.txt
+Mejor camino: 0 - 6 - 3 - 4 - 1 - 2 - 5 - 0
+Coste: 20
+Tiempo: 0.000610462
+
+Mapa: mapas/t7-ns_3.txt
+Mejor camino: 0 - 3 - 1 - 5 - 6 - 4 - 2 - 0
+Coste: 25
+Tiempo: 0.00135765
+
+Mapa: mapas/t7-s_1.txt
+Mejor camino: 0 - 5 - 1 - 4 - 3 - 6 - 2 - 0
+Coste: 21
+Tiempo: 0.000618549
+
+Mapa: mapas/t7-s_2.txt
+Mejor camino: 0 - 6 - 1 - 2 - 4 - 5 - 3 - 0
+Coste: 24
+Tiempo: 0.000636932
+
+Mapa: mapas/t7-s_3.txt
+Mejor camino: 0 - 3 - 1 - 5 - 4 - 6 - 2 - 0
+Coste: 18
+Tiempo: 0.000631956
+
+Mapa: mapas/t8-ns_1.txt
+Mejor camino: 0 - 4 - 6 - 5 - 1 - 3 - 7 - 2 - 0
+Coste: 25
+Tiempo: 0.00525677
+
+Mapa: mapas/t8-ns_2.txt
+Mejor camino: 0 - 5 - 7 - 1 - 3 - 6 - 2 - 4 - 0
+Coste: 21
+Tiempo: 0.00376118
+
+Mapa: mapas/t8-ns_3.txt
+Mejor camino: 0 - 7 - 6 - 3 - 1 - 5 - 4 - 2 - 0
+Coste: 18
+Tiempo: 0.00378966
+
+Mapa: mapas/t8-s_1.txt
+Mejor camino: 0 - 5 - 7 - 3 - 6 - 4 - 1 - 2 - 0
+Coste: 28
+Tiempo: 0.00375063
+
+Mapa: mapas/t8-s_2.txt
+Mejor camino: 0 - 4 - 7 - 6 - 1 - 3 - 5 - 2 - 0
+Coste: 24
+Tiempo: 0.00373665
+
+Mapa: mapas/t8-s_3.txt
+Mejor camino: 0 - 5 - 3 - 1 - 4 - 7 - 6 - 2 - 0
+Coste: 24
+Tiempo: 0.0038318
+
+Mapa: mapas/t9-ns_1.txt
+Mejor camino: 0 - 5 - 3 - 4 - 2 - 8 - 6 - 1 - 7 - 0
+Coste: 23
+Tiempo: 0.0340181
+
+Mapa: mapas/t9-ns_2.txt
+Mejor camino: 0 - 1 - 4 - 6 - 5 - 2 - 8 - 7 - 3 - 0
+Coste: 22
+Tiempo: 0.0325272
+
+Mapa: mapas/t9-ns_3.txt
+Mejor camino: 0 - 5 - 4 - 6 - 2 - 3 - 1 - 7 - 8 - 0
+Coste: 27
+Tiempo: 0.0324254
+
+Mapa: mapas/t9-s_1.txt
+Mejor camino: 0 - 7 - 6 - 8 - 3 - 2 - 1 - 5 - 4 - 0
+Coste: 29
+Tiempo: 0.0364524
+
+Mapa: mapas/t9-s_2.txt
+Mejor camino: 0 - 3 - 4 - 6 - 2 - 8 - 5 - 7 - 1 - 0
+Coste: 17
+Tiempo: 0.0324351
+
+Mapa: mapas/t9-s_3.txt
+Mejor camino: 0 - 8 - 5 - 6 - 7 - 1 - 2 - 4 - 3 - 0
+Coste: 20
+Tiempo: 0.0325377
+
