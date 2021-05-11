@@ -35,7 +35,7 @@
 %Declarar formato de encabezado y pie de página de las páginas del documento
 \fancypagestyle{doc}{
   %Cabecera
-  \headerpr[1]{Máquinas de Turing}{}{Teoría Avanzada de la Computación}
+  \headerpr[1]{Optimización combinatoria}{}{Teoría Avanzada de la Computación}
   %Pie de Página
   \footerpr{}{\textbf{UC3M}}{{\thepage} de \pageref{LastPage}}
 }
@@ -59,7 +59,7 @@
 
 
   %Portada 1 (Centrado todo)
-  \centeredtitle{Images/LogoUC3M.png}{Grado en Ingeniería Informática}{Curso 2020/2021}{Teoría Avanzada de la Computación}{Máquinas de Turing}{}
+  \centeredtitle{Images/LogoUC3M.png}{Grado en Ingeniería Informática}{Curso 2020/2021}{Teoría Avanzada de la Computación}{Optimización combinatoria}{}
 
   \vspace{55mm}
 
@@ -74,33 +74,82 @@
 
   %Comienzo formato documento general
   \mainmatter
+  
+  \section{Introducción}
+  Explicar por encima el TSP
+  
+  Objetivo y estructura de la práctica
+  
+  Decir que el código se lleva a cabo en C++ y por qué
 
-  \section{Búsqueda basada en \textit{Backtracking}}
+  \section{Algoritmo de búsqueda iterativa}
 
-  Búsqueda basada en Backtracking o equivalente iterativa. Explorar la posibilidad de mejora mediante una heurística sencilla o aplicando criterios de poda. En este caso se busca garantizar siempre una solución óptima. Será difícil encontrar soluciones para problemas de tamaños n mayores a 14 … 20.
+  El algoritmo que se plantea es DFS (\textit{Depth First Search}). Este algoritmo consiste en expandir desde el nodo raíz, que representa la posición inicial, todos sus nodos hijos. A continuación, se expanden todos los nodos del primer hijo. Esto se repite por el mismo camino hasta que termina y vuelve al origen. Una vez termina, va iterando hacia atrás y realiza el mismo proceso con todos sus nodos hermanos.
 
-  \subsection{Coste Computacional}
+  \vspace{2mm}
+
+  Para la implementación de este algoritmo se ha hecho uso de una pila de nodos expandidos, y cada vez que un nodo generaba nuevos hijos, se añadían a la pila. Cada camino se completa cuando no es capaz de generar más hijos porque ya ha visitado todos los nodos.
+
+  \vspace{2mm}
+
+  Este algoritmo, al aplicarse en el problema del TSP, genera todos los ciclos Hamiltonianos posibles comenzando en un mismo punto y, por tanto, es completo. También se puede asegurar su optimalidad ya que, al generar todos los caminos, y ser todos del mismo tamaño, tan solo hay que almacenar el camino que genera mejores resultados.
+
+  \vspace{2mm} % IMAGEN ÁRBOL
+  
+  Al tener que expandir todos los nodos, el tiempo de computo aumenta considerablemente según el tamaño del problema crece, es decir, cuando se añaden más ciudades el número de nodos a generar crece muy rápido. Esto hace que se busque algún método para reducir el número de nodos a generar. Esta mejora consiste en realizar una poda del árbol de búsqueda cuando el coste acumulado del camino es mayor que el costed del mejor camino ya encontrado.
+
+
+
+  \subsection{Coste Computacional DFS básico}
+
+  \subsubsection{Estudio Analítico}
+
+  Usando $n$ como el número de ciudades del problema, el número de ciclos Hamiltonianos que se pueden realizar es $(n-1)!$ porque tanto la primera como la última ciudad son la misma y son fijas. En esta implementación no existe un peor caso, ya que es necesario expandir todos los nodos en todos los casos, independientemente de si el mejor camino es el primero o el último.
+
+  \vspace{2mm}
+
+
+  
+  \subsubsection{Estudio Empírico}
+  
+  \begin{figure}[!h]
+    \imgcenter[150]{Images/tiempo_comparativa_dfs_basico.png}
+    \caption{Comparativa de tiempo DFS básico}
+  \end{figure}
+  
+  \newpage
+
+  \subsubsection{Estudio Combinado}
+
+  \subsection{Coste Computacional DFS con poda}
 
   \subsubsection{Estudio Analítico}
 
   \subsubsection{Estudio Empírico}
+  
+  \begin{figure}[!h]
+    \imgcenter[150]{Images/tiempo_comparativa_dfs_poda.png}
+    \caption{Comparativa de tiempo DFS con poda}
+  \end{figure}
 
   \subsubsection{Estudio Combinado}
-  
 
 
 
 
-  \section{Búsqueda local}
+  \section{Algoritmo de búsqueda local}
 
   Búsqueda local. Partiendo de la solución de un algoritmo greedy [1], aplicar el operador 2-opt [2]. En este caso, no se podrá garantizar una solución óptima, pero se podrá estudiar qué calidad puede proporcionar el método (en \% de desviación respecto al recorrido óptimo) en un tiempo razonable.
 
+  \subsection{Coste Computacional}
+  
   \subsubsection{Estudio Analítico}
 
   \subsubsection{Estudio Empírico}
 
   \subsubsection{Estudio Combinado}
 
-
+  \section{Conclusión}
+  
 
 \end{document}
