@@ -181,11 +181,11 @@ public:
       }
     }
     cout << "Mejor camino: ";
-      for (int i = 0; i < map_size; i++) {
-            cout << best_path[i] << " - ";
-      }
-      cout << best_path[map_size] << endl;
-      cout << "Coste: " << best_path_cost << endl;    
+    for (int i = 0; i < map_size; i++) {
+          cout << best_path[i] << " - ";
+    }
+    cout << best_path[map_size] << endl;
+    cout << "Coste: " << best_path_cost << endl;    
   }
 
 
