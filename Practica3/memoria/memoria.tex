@@ -110,7 +110,7 @@
 
   Este algoritmo, al aplicarse en el problema del TSP, genera todos los ciclos Hamiltonianos posibles comenzando en un mismo punto y, por tanto, es completo. También se puede asegurar su optimalidad ya que, al generar todos los caminos, y ser todos del mismo tamaño, tan solo hay que almacenar el camino que genera mejores resultados.
 
-  \vspace{2mm} % IMAGEN ÁRBOL
+  \vspace{2mm} 
   
   Al tener que expandir todos los nodos, el tiempo de computo aumenta considerablemente según el tamaño del problema crece, es decir, cuando se añaden más ciudades el número de nodos a generar crece muy rápido. Esto hace que se busque algún método para reducir el número de nodos a generar. Esta mejora consiste en realizar una poda del árbol de búsqueda cuando el coste acumulado del camino es mayor que el costed del mejor camino ya encontrado.
 
@@ -124,7 +124,35 @@
 
   \vspace{2mm}
 
+  En el código se puede ver que la función que lleva a cabo la búsqueda en profundidad está formada por un bucle \textit{while} que se ejecuta mientras la pila de nodos no visitados no esté vacía. En su interior hay 2 bucles \textit{for} anidados que se realizan ambos $n$ veces, el primero crea los hijos para cada nodo y el anidado actualiza la lista de nodos visitados y la lista con el orden nuevo. El segundo bucle se encuentra dentro de un \textit{if} cuya condición es verdadera tantas veces como ciudades queden por visitar.
 
+  \vspace{2mm}
+
+  Analizando el funcionamiento del código, se puede ver que el \textit{while}, junto con el primer \textit{for} se realiza tantas veces como nodos sean creados. El número de nodos creados depende del número de ciudades iniciales. Si se entienden los caminos como un árbol, en el primer nivel habría $n-1$ nodos, en el segundo $(n-1)*(n-2)$ nodos, etc. En la figura \ref{fig:ejemploCaminos} se ve con más detalle esta explicación para un ejemplo con 4 ciudades.
+  
+  \begin{figure}[!h]
+    \imgcenter[95]{Images/grafoejemplo.png}
+    \caption{Ejemplo de grafo de todos los caminos posibles con 4 ciudades sin regreso}
+    \label{fig:ejemploCaminos}
+  \end{figure}
+  
+  
+  Por tanto el bucle \textit{while} junto con el primer \textit{for} se ejecuta:
+  
+  $$ \displaystyle\sum_{i=0}^{n-2} \frac{(n-1)!}{i!} $$
+  
+  veces, dado que no hay que tener en cuenta ni la raíz ni el regreso a la primera ciudad.
+
+  \vspace{2mm}
+
+  Así que la complejidad total de este algoritmo es:
+
+  $$ T(n) = n * \displaystyle\sum_{i=0}^{n-2} \frac{(n-1)!}{i!} $$
+
+  donde el primer $n$ corresponde al segundo \textit{for} y el sumatorio al \textit{while} junto al primer \textit{for} explicado previamente. Hay que multiplicar por $n$ dado que cada vez que se crea un nodo, este segundo \textit{for} tiene que inicializar los valores de ciudades ya visitadas y el orden por el que se visitan. Por tanto, la complejidad de este algoritmo en notación de \textit{Big-O} es:
+
+  $$ O(n) = n! $$
+  
   
   \subsubsection{Estudio Empírico}
   
@@ -132,7 +160,7 @@
   
   \vspace{2mm} 
 
-  Se han creado diversos archivos, desde 3 hasta 19 ciudades. Para un grafo de $n$ ciudades, se han creado 10 grafos simétricos y 10 grafos asimétricos. Para cada ejemplo, se ha medido el tiempo de ejecución y se ha representado en la siguiente gráfica.
+  Se han creado diversos archivos, desde 3 hasta 19 ciudades. Para un grafo de $n$ ciudades, se han creado 10 grafos simétricos y 10 grafos asimétricos. Para cada ejemplo, se ha medido el tiempo de ejecución y se ha representado en la figura \ref{fig:compDFS}.
 
   \vspace{2mm}
   
@@ -142,11 +170,25 @@
     \label{fig:compDFS}
   \end{figure}
   
-  \newpage
   
-  Como se puede observar en la figura \ref{fig:compDFS}, los resultados para mapas con grafos simétricos, requieren siempre del mismo tiempo de ejecución, que parece tener un crecimiento factorial observable a partir de las 12 ciudades. Sin embargo, con los mapas no simétricos, existen leves variaciones, pues el tiempo necesario para resolver el problema varía ligeramente, dependiendo del ejemplo.
+  Los tiempos son prácticamente similares para mapas simétricos como no simétricos, aunque se puede apreciar un crecimiento muy rápido a partir de las 10 ciudades, como era esperable. El problema es que también se traduce en un crecimiento factorial del uso de memoria.
+
+  \vspace{2mm}
+
+  Para más de 12 ciudades el algoritmo no se puede ejecutar porque consume demasiada memoria y no es capaz de terminar la ejecución, por ello no aparecen sus valores en la gráfica.
 
   \subsubsection{Estudio Combinado}
+  
+  En este apartado se intentan aplicar la función de complejidad obtenida analíticamente junto a los datos empíricos. Se quiere demostrar si la complejidad que se obtiene al ejecutar el algoritmo coincide con el estudio analítico previo.
+
+  \begin{figure}[!h]
+    \imgcenter[150]{Images/dfs_combinado.png}
+    \caption{Comparativa de valores empíricos y esperados del DFS básico}
+    \label{fig:comp_combDFS}
+  \end{figure}
+
+  En la figura \ref{fig:comp_combDFS} se puede ver que la función se aplica con una precisión muy alta sobre los datos empíricos, confirmando que es posible que esta sea su complejidad. Sin embargo, al tener una cantidad tan reducida de ejemplos, y no poder probar mapas con mayor número de ciudades, no se puede asegurar que la complejidad sea la misma con ejemplos que hacen uso de una $n$ mayor.
+  
 
   \subsection{Coste Computacional DFS con poda}
 
@@ -157,6 +199,7 @@
   \begin{figure}[!h]
     \imgcenter[150]{Images/tiempo_comparativa_dfs_poda.png}
     \caption{Comparativa de tiempo DFS con poda}
+    \label{fig:compDFSpoda}
   \end{figure}
 
   Estudiando la gráfica de los resultados obtenidos al resolver el problema del viajante utilizando poda en el algoritmo, se observa que ahora, tanto los mapas simétricos como los mapas asimétricos, presentan diferencias en los tiempos de ejecución. Esto es debido a que en ambos tipos de mapas se está aplicando poda, por lo que es de esperar que los tiempos sean distintos.
@@ -166,6 +209,9 @@
   Además conforme el tamaño de los mapas va aumentando, la diferencia de tiempo que se tarda en resolver mapas del mismo tamaño también va aumentando, pues cuantas más ciudades haya, más caminos hay, y por tanto más veces se puede aplicar la poda en la resolución del problema.
 
   \subsubsection{Estudio Combinado}
+
+
+
 
 
   \clearpage
@@ -189,7 +235,57 @@
   
   \subsubsection{Estudio Analítico}
 
+  Dado un número de ciudades $n$, el algoritmo voraz debe elegir una ciudad nueva únicamente cada vez que se desciende un nivel en el árbol. En el último nivel, todas las ciudades deben haber sido visitadas. Como todos los nodos del grafo se deben recorrer, no existe peor caso. En la figura \ref{fig:ejGreedy} se puede ver un ejemplo en un grafo de este algoritmo con 4 ciudades.
+  
+  \begin{figure}[!h]
+    \imgcenter[20]{Images/caminoGreedy.png}
+    \caption{Ejemplo de grafo con un único camino}
+    \label{fig:ejGreedy}
+  \end{figure}
+  
+  El algoritmo diseñado consta de un bucle \textit{for} exterior en el que se elige en cada iteración el nodo siguiente a crear, y un bucle \textit{for} interior, que elige el camino de menor coste para viajar a la siguiente ciudad, teniendo en cuenta no visitar ninguna ciudad que ya haya sido visitada. Por tanto, teniendo $n$ ciudades, el bucle exterior se ejecutará $n - 1$ veces, ya que la primera ciudad es la ciudad inicial, que se cuenta como visitada, y el bucle interior se ejecuta $n$ veces, puesto que en cada iteración se comprueba si cada ciudad ha sido visitada o no, incluyendo la ciudad inicial. La complejidad del algoritmo voraz queda por tanto como:
+  
+  $$T_{greedy}(n) = n*(n-1) = n^2 + n$$
+
+  \vspace{2mm}
+  
+  La segunda parte de la solución planteada pasa por utilizar el algoritmo 2-opt para mejorar la solución dada por el algoritmo voraz. Este algoritmo elige dos ciudades de la ruta propuesta y cambia el orden de todas la ciudades que estén entre estas dos, con la intención de que, al intercambiar el orden, el coste total de recorrer todas las ciudades disminuya.
+
+  \vspace{2mm}
+
+  Teniendo en cuenta que cada una de las ciudades puede ocupar todas las posiciones en la ruta (excepto la ciudad de partida, que debe aparecer en la primera y última posición siempre), teniendo un total de $n$ ciudades, dado que la primera y última son fijas, tienen que poder combinarse $n-1$ ciudades.
+
+  \vspace{2mm}
+
+  La codificación del algoritmo consiste en ir realizando intercambios en el orden del camino base usando parejas de valores ($i$ y $k$), donde se realiza un bucle \textit{for} que itera por $i$ dándole un valor inicial de 1, y dentro hay un segundo bucle \textit{for} que itera por $k$ donde se inicializa siempre como $i+1$. Si se recorren ambos bucles realizando permutaciones sin haber encontrado una solución que mejore el estado actual, el algoritmo termina. En caso contrario, vuelve a realizar ambos bucles.
+
+  \vspace{2mm}
+  
+
+   El peor caso se da cuando el algoritmo tiene que comprobar todas las posibles combinaciones. Por lo tanto tiene que realizar todas las permutaciones posibles sobre $n-1$ elementos, con una complejidad de:
+   
+  $$T_{2-opt}(n) = (n-1)!$$
+  
+  Por tanto, la complejidad total del algoritmo de búsqueda local es:
+  
+  $$T(n) = (n^2 + n) * (n-1)!$$
+  
+  Y se puede expresar en notación \textit{Big-O} como:
+  
+  $$O(n) = n!$$
+
+
+
+
   \subsubsection{Estudio Empírico}
+  
+  \begin{figure}[!h]
+    \imgcenter[150]{Images/tiempo_comparativa_local.png}
+    \caption{Comparativa de tiempo búsqueda local}
+    \label{fig:compLocal}
+  \end{figure}
+
+
 
   \subsubsection{Estudio Combinado}
 
