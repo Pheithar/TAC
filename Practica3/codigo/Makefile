@@ -45,7 +45,7 @@ run_dfs_poda:
 run_local:
 	@echo "Ejecutando TSPLocal"
 	@echo
-	@./TSPLocal.out
+	@./TSPLocal.out mapa_prueba.txt 8 0
 
 generate:
 	@echo "Generando ciudades"

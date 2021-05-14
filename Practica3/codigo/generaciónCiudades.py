@@ -34,10 +34,10 @@ def save_map(file, map):
                     f.write(',')
             f.write('\n')
 
-for i in range(3, 14):
-    for j in range(3):
+for i in range(3, 20):
+    for j in range(10):
         file_name_s ='mapas/t' + str(i) + '-s_' + str(j+1) + '.txt'
         file_name_ns ='mapas/t' + str(i) + '-ns_' + str(j+1) + '.txt'
 
-        save_map(file_name_ns, create_map(i, 1, 10, False))
-        save_map(file_name_s, create_map(i, 1, 10, True))
+        save_map(file_name_ns, create_map(i, 1, 50, False))
+        save_map(file_name_s, create_map(i, 1, 50, True))

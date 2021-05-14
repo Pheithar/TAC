@@ -1,6 +1,5 @@
 #include <iostream>
 #include <stack>
-#include <string.h>
 #include <fstream>
 #include <vector>
 #include <string>
@@ -71,7 +70,7 @@ public:
     return not_visited;
   }
 
-  int DFS(bool verbose = false) {
+  void DFS(bool verbose = false) {
     while (!not_visited.empty()){
       Node parent = not_visited.top();
 
@@ -140,11 +139,6 @@ public:
     }
     cout << root.get_city_id() << endl;
     cout << "Coste: " << best_path_cost << endl;
-    
-    
-
-
-    return 0;
   }
 };
 

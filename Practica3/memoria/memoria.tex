@@ -76,12 +76,28 @@
   \mainmatter
   
   \section{Introducción}
-  Explicar por encima el TSP
-  
-  Objetivo y estructura de la práctica
-  
-  Decir que el código se lleva a cabo en C++ y por qué
 
+  En esta práctica se plantea resolver el TSP (\textit{Travelling Salesman Problem}), también conocido como problema del viajante, a través de dos algoritmos distintos. El primer algortimo es DFS, basado en búsqueda en profundidad, mientras que el segundo algoritmo utiliza un algoritmo \textit{greedy}, para aplicar búsqueda local y tratar de mejorar la solución obtenida con el operador 2-opt. Para desarrollar ambos algoritmos, se va a utilizar \textit{C++}, ya que ofrece mayor rendimiento que otros lenguajes de programación.
+
+  \vspace{2mm}
+
+  El objetivo es desarrollar y analizar estos algoritmos para resolver el problema de optimización combinatoria TSP. Éste es un problema que plantea qué camino tomar dadas una serie de ciudades conectadas, empezando y terminando en la misma ciudad, de forma que la solución tenga la menor distancia posible. La solución de este problema consiste en encontrar el ciclo Hamiltoniano que tenga el menor tamaño. Encontrarlo no es una tarea trivial, dado que el número de caminos posibles crece factorialmente al añadir una ciudad más.
+
+  \vspace{2mm}
+
+  El TSP se considera como un problema NP-completo, y es uno de los algoritmos más estudiados, para el cuál existen numerosos métodos de resolución y heurísticas. Para esta práctica se va a realizar un acercamiento por fuerza bruta a través del algoritmo de profundidad, un acercamiento ligeramente más sofisticado con una poda sobre la fuerza bruta y una nueva implementeación con búsqueda local.
+
+  \vspace{2mm}
+
+  La memoria se divide en dos apartados principales, uno para el algoritmo DFS y otro para el algoritmo de búsqueda local. En cada apartado se estudia el coste computacional de cada algoritmo mediante un estudio analítico y empírico del mismo. Además, en el algoritmo de DFS se analizan dos variantes, uno básico y uno al que se le aplica poda. 
+
+  \vspace{5mm}
+
+  Para permitir la replicabilidad de los resultados, así como para poder comprobar los resultados obtenidos, se va a hacer uso de un cuaderno de \textit{Python} en la herramiento de \textit{Google Colab}, donde se ejecutarán los distintos algoritmos y se generarán las distintas gráficas comparativas.
+  
+
+\clearpage
+  
   \section{Algoritmo de búsqueda iterativa}
 
   El algoritmo que se plantea es DFS (\textit{Depth First Search}). Este algoritmo consiste en expandir desde el nodo raíz, que representa la posición inicial, todos sus nodos hijos. A continuación, se expanden todos los nodos del primer hijo. Esto se repite por el mismo camino hasta que termina y vuelve al origen. Una vez termina, va iterando hacia atrás y realiza el mismo proceso con todos sus nodos hermanos.
@@ -112,12 +128,23 @@
   
   \subsubsection{Estudio Empírico}
   
+  Para llevar a cabo el estudio empírico, se han utilizado varios ejemplos de grafos generados a partir de un \textit{script} generador de grafos, tanto simétricos como asimétricos. Este \textit{script} está hecho en \textit{Python}, toma como \textit{inputs} el número de ciudades y si el grafo debe ser o no simétrico, y devuelve un fichero con la matriz de costos para representar el grafo y el tamaño de dicha matriz (número de ciudades).
+  
+  \vspace{2mm} 
+
+  Se han creado diversos archivos, desde 3 hasta 19 ciudades. Para un grafo de $n$ ciudades, se han creado 10 grafos simétricos y 10 grafos asimétricos. Para cada ejemplo, se ha medido el tiempo de ejecución y se ha representado en la siguiente gráfica.
+
+  \vspace{2mm}
+  
   \begin{figure}[!h]
     \imgcenter[150]{Images/tiempo_comparativa_dfs_basico.png}
     \caption{Comparativa de tiempo DFS básico}
+    \label{fig:compDFS}
   \end{figure}
   
   \newpage
+  
+  Como se puede observar en la figura \ref{fig:compDFS}, los resultados para mapas con grafos simétricos, requieren siempre del mismo tiempo de ejecución, que parece tener un crecimiento factorial observable a partir de las 12 ciudades. Sin embargo, con los mapas no simétricos, existen leves variaciones, pues el tiempo necesario para resolver el problema varía ligeramente, dependiendo del ejemplo.
 
   \subsubsection{Estudio Combinado}
 
@@ -132,14 +159,31 @@
     \caption{Comparativa de tiempo DFS con poda}
   \end{figure}
 
+  Estudiando la gráfica de los resultados obtenidos al resolver el problema del viajante utilizando poda en el algoritmo, se observa que ahora, tanto los mapas simétricos como los mapas asimétricos, presentan diferencias en los tiempos de ejecución. Esto es debido a que en ambos tipos de mapas se está aplicando poda, por lo que es de esperar que los tiempos sean distintos.
+
+  \vspace{2mm}
+
+  Además conforme el tamaño de los mapas va aumentando, la diferencia de tiempo que se tarda en resolver mapas del mismo tamaño también va aumentando, pues cuantas más ciudades haya, más caminos hay, y por tanto más veces se puede aplicar la poda en la resolución del problema.
+
   \subsubsection{Estudio Combinado}
 
 
-
+  \clearpage
 
   \section{Algoritmo de búsqueda local}
 
-  Búsqueda local. Partiendo de la solución de un algoritmo greedy [1], aplicar el operador 2-opt [2]. En este caso, no se podrá garantizar una solución óptima, pero se podrá estudiar qué calidad puede proporcionar el método (en \% de desviación respecto al recorrido óptimo) en un tiempo razonable.
+  Incialmente se realiza una búsqueda con un algoritmo \textit(greedy) o algoritmo voraz, que selecciona en cada paso el camino de menor coste, con la idea de conseguir la solución óptima. Sin embargo, los algoritmos voraces, a pesar de ser algoritmos completos, ya que garantizan encontrar siempre una solución, no garantizan que la solución encontrada sea óptima. 
+
+  \vspace{2mm}
+
+  Una vez se tiene un camino usando la búsqueda \textit{greedy}, se aplica sobre éste una búsqueda local con 2-opt, que tratará de mejorar la solución ofrecida inicialmente. Para ello, el algoritmo se basa en cambiar el orden en el que se visitan algunas ciudades en la ruta ofrecida, recalculando el coste de recorrer todas las ciudades. En el caso de que el coste total de recorrer el grafo no mejore, el algoritmo se detiene, ofreciendo una solución a priori mejor que la solución incial. De nuevo, al igual que el algoritmo voraz, la optimización 2-opt no garantiza encontrar la solución óptima al problema. 
+  
+  \vspace{2mm}
+
+  En este caso, para la implementación del algoritmo no es necesaria una pila de nodos expandidos porque no hace falta explorar todos los caminos. Ya que se expande siempre en cada nodo el de menor coste. 
+
+
+  
 
   \subsection{Coste Computacional}
   
@@ -148,6 +192,8 @@
   \subsubsection{Estudio Empírico}
 
   \subsubsection{Estudio Combinado}
+
+  \clearpage
 
   \section{Conclusión}
   
