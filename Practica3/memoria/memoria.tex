@@ -74,7 +74,7 @@
 
   %Comienzo formato documento general
   \mainmatter
-  
+
   \section{Introducción}
 
   En esta práctica se plantea resolver el TSP (\textit{Travelling Salesman Problem}), también conocido como problema del viajante, a través de dos algoritmos distintos. El primer algortimo es DFS, basado en búsqueda en profundidad, mientras que el segundo algoritmo utiliza un algoritmo \textit{greedy}, para aplicar búsqueda local y tratar de mejorar la solución obtenida con el operador 2-opt. Para desarrollar ambos algoritmos, se va a utilizar \textit{C++}, ya que ofrece mayor rendimiento que otros lenguajes de programación.
@@ -89,15 +89,15 @@
 
   \vspace{2mm}
 
-  La memoria se divide en dos apartados principales, uno para el algoritmo DFS y otro para el algoritmo de búsqueda local. En cada apartado se estudia el coste computacional de cada algoritmo mediante un estudio analítico y empírico del mismo. Además, en el algoritmo de DFS se analizan dos variantes, uno básico y uno al que se le aplica poda. 
+  La memoria se divide en dos apartados principales, uno para el algoritmo DFS y otro para el algoritmo de búsqueda local. En cada apartado se estudia el coste computacional de cada algoritmo mediante un estudio analítico y empírico del mismo. Además, en el algoritmo de DFS se analizan dos variantes, uno básico y uno al que se le aplica poda.
 
   \vspace{5mm}
 
   Para permitir la replicabilidad de los resultados, así como para poder comprobar los resultados obtenidos, se va a hacer uso de un cuaderno de \textit{Python} en la herramiento de \textit{Google Colab}, donde se ejecutarán los distintos algoritmos y se generarán las distintas gráficas comparativas.
-  
+
 
 \clearpage
-  
+
   \section{Algoritmo de búsqueda iterativa}
 
   El algoritmo que se plantea es DFS (\textit{Depth First Search}). Este algoritmo consiste en expandir desde el nodo raíz, que representa la posición inicial, todos sus nodos hijos. A continuación, se expanden todos los nodos del primer hijo. Esto se repite por el mismo camino hasta que termina y vuelve al origen. Una vez termina, va iterando hacia atrás y realiza el mismo proceso con todos sus nodos hermanos.
@@ -110,8 +110,8 @@
 
   Este algoritmo, al aplicarse en el problema del TSP, genera todos los ciclos Hamiltonianos posibles comenzando en un mismo punto y, por tanto, es completo. También se puede asegurar su optimalidad ya que, al generar todos los caminos, y ser todos del mismo tamaño, tan solo hay que almacenar el camino que genera mejores resultados.
 
-  \vspace{2mm} 
-  
+  \vspace{2mm}
+
   Al tener que expandir todos los nodos, el tiempo de computo aumenta considerablemente según el tamaño del problema crece, es decir, cuando se añaden más ciudades el número de nodos a generar crece muy rápido. Esto hace que se busque algún método para reducir el número de nodos a generar. Esta mejora consiste en realizar una poda del árbol de búsqueda cuando el coste acumulado del camino es mayor que el costed del mejor camino ya encontrado.
 
 
@@ -129,18 +129,18 @@
   \vspace{2mm}
 
   Analizando el funcionamiento del código, se puede ver que el \textit{while}, junto con el primer \textit{for} se realiza tantas veces como nodos sean creados. El número de nodos creados depende del número de ciudades iniciales. Si se entienden los caminos como un árbol, en el primer nivel habría $n-1$ nodos, en el segundo $(n-1)*(n-2)$ nodos, etc. En la figura \ref{fig:ejemploCaminos} se ve con más detalle esta explicación para un ejemplo con 4 ciudades.
-  
+
   \begin{figure}[!h]
     \imgcenter[95]{Images/grafoejemplo.png}
     \caption{Ejemplo de grafo de todos los caminos posibles con 4 ciudades sin regreso}
     \label{fig:ejemploCaminos}
   \end{figure}
-  
-  
+
+
   Por tanto el bucle \textit{while} junto con el primer \textit{for} se ejecuta:
-  
+
   $$ \displaystyle\sum_{i=0}^{n-2} \frac{(n-1)!}{i!} $$
-  
+
   veces, dado que no hay que tener en cuenta ni la raíz ni el regreso a la primera ciudad.
 
   \vspace{2mm}
@@ -152,25 +152,25 @@
   donde el primer $n$ corresponde al segundo \textit{for} y el sumatorio al \textit{while} junto al primer \textit{for} explicado previamente. Hay que multiplicar por $n$ dado que cada vez que se crea un nodo, este segundo \textit{for} tiene que inicializar los valores de ciudades ya visitadas y el orden por el que se visitan. Por tanto, la complejidad de este algoritmo en notación de \textit{Big-O} es:
 
   $$ O(n) = n! $$
-  
-  
+
+
   \subsubsection{Estudio Empírico}
-  
+
   Para llevar a cabo el estudio empírico, se han utilizado varios ejemplos de grafos generados a partir de un \textit{script} generador de grafos, tanto simétricos como asimétricos. Este \textit{script} está hecho en \textit{Python}, toma como \textit{inputs} el número de ciudades y si el grafo debe ser o no simétrico, y devuelve un fichero con la matriz de costos para representar el grafo y el tamaño de dicha matriz (número de ciudades).
-  
-  \vspace{2mm} 
+
+  \vspace{2mm}
 
   Se han creado diversos archivos, desde 3 hasta 19 ciudades. Para un grafo de $n$ ciudades, se han creado 10 grafos simétricos y 10 grafos asimétricos. Para cada ejemplo, se ha medido el tiempo de ejecución y se ha representado en la figura \ref{fig:compDFS}.
 
   \vspace{2mm}
-  
+
   \begin{figure}[!h]
     \imgcenter[150]{Images/tiempo_comparativa_dfs_basico.png}
     \caption{Comparativa de tiempo DFS básico}
     \label{fig:compDFS}
   \end{figure}
-  
-  
+
+
   Los tiempos son prácticamente similares para mapas simétricos como no simétricos, aunque se puede apreciar un crecimiento muy rápido a partir de las 10 ciudades, como era esperable. El problema es que también se traduce en un crecimiento factorial del uso de memoria.
 
   \vspace{2mm}
@@ -178,7 +178,7 @@
   Para más de 12 ciudades el algoritmo no se puede ejecutar porque consume demasiada memoria y no es capaz de terminar la ejecución, por ello no aparecen sus valores en la gráfica.
 
   \subsubsection{Estudio Combinado}
-  
+
   En este apartado se intentan aplicar la función de complejidad obtenida analíticamente junto a los datos empíricos. Se quiere demostrar si la complejidad que se obtiene al ejecutar el algoritmo coincide con el estudio analítico previo.
 
   \begin{figure}[!h]
@@ -188,27 +188,69 @@
   \end{figure}
 
   En la figura \ref{fig:comp_combDFS} se puede ver que la función se aplica con una precisión muy alta sobre los datos empíricos, confirmando que es posible que esta sea su complejidad. Sin embargo, al tener una cantidad tan reducida de ejemplos, y no poder probar mapas con mayor número de ciudades, no se puede asegurar que la complejidad sea la misma con ejemplos que hacen uso de una $n$ mayor.
-  
+
 
   \subsection{Coste Computacional DFS con poda}
 
   \subsubsection{Estudio Analítico}
 
+  Este acercamiento aplica el mismo algoritmo de búsqueda en profundidad iterativa, pero se le realiza una poda al árbol de búsqueda. Con esto se pretende reducir el número de nodos a expandir y por tanto que disminuya el tiempo y consumo de memoria requeridos. Asimismo se espera poder ejecutar mapas de mayor tamaño.
+
+  \vspace{2mm}
+
+  La poda consiste en no expandir nodos cuando el coste del camino acumulado supera el coste del mejor camino encontrado hasta el momento. Es una poda muy sencilla que permite reducir en gran medida el tiempo de computación. Sin embargo, al usar esta mejora aparece una diferenciación entre mejores y peores casos. El mejor caso se da cuando el primer camino es el óptimo y el resto de hijos de la raíz tienen un coste mayor que el camino entero. Por otro lado, el peor caso se da cuando cada camino es mejor que el anterior, de forma que es necesario expandir todos los nodos. Éste caso es idéntico, en complejidad, al algoritmo DFS sin poda.
+
+  \vspace{2mm}
+
+  Respecto a la implementación de este algoritmo, su código es prácticamente igual al anterior a excepción de que a la hora de crear nuevos hijos exite un \textit{if} que hace que solo se creen los hijos si el coste acumulado es menor que el mejor camino encontrado.
+
+  \vspace{2mm}
+
+  El estudio de la complejidad se divide en el estudio del mejor y peor caso por separado porque la complejidad de la mayoría de ejemplos se podrá ajustar usando la media de estos dos casos límite.
+
+  \vspace{2mm}
+
+  En el mejor de los casos será necesario expandir todo el primer nivel del árbol ($n-1$ nodos). Después hay que expandir todos los nodos de uno de ellos ($n-2$ nodos), y así sucesivamente se repite el proceso hasta que solo haya un único nodo. Entonces, la complejidad de este caso es:
+
+  $$ T_{mejor}(n) = \displaystyle\sum_{i=1}^{n-1} n-i $$
+
+
+  En el peor de los casos la complejidad será la misma que en el problema anterior, pues se tienen que expandir todos los nodos.
+
+  $$ T_{peor}(n) = n * \displaystyle\sum_{i=0}^{n-2} \frac{(n-1)!}{i!} $$
+
+
+  Por lo tanto, la complejidad media de este algoritmo estará entre la complejidad del peor caso y del mejor. Así que la complejidad del algoritmo DFS con poda en notación \textit{Big-O} sigue siendo:
+
+  $$ O(n) = n! $$
+
+
   \subsubsection{Estudio Empírico}
-  
+
+  El estudio empírico se realiza con los mismos mapas simétricos y asimétricos que se crearon para el estudio del algoritmo sin poda. Los resultados obtenidos se muestran en la figura \ref{fig:compDFSpoda}, donde esta vez sí aparecen en la gráfica valores para mapas de mayor tamaño, llegando hasta mapas con 19 ciudades.
+
   \begin{figure}[!h]
     \imgcenter[150]{Images/tiempo_comparativa_dfs_poda.png}
     \caption{Comparativa de tiempo DFS con poda}
     \label{fig:compDFSpoda}
   \end{figure}
 
-  Estudiando la gráfica de los resultados obtenidos al resolver el problema del viajante utilizando poda en el algoritmo, se observa que ahora, tanto los mapas simétricos como los mapas asimétricos, presentan diferencias en los tiempos de ejecución. Esto es debido a que en ambos tipos de mapas se está aplicando poda, por lo que es de esperar que los tiempos sean distintos.
+  Estudiando la gráfica de los resultados obtenidos al resolver el problema del viajante utilizando poda en el algoritmo, se observa que ahora, tanto los mapas simétricos como los mapas asimétricos, presentan diferencias en los tiempos de ejecución. Esto es debido a que en cada mapa se está aplicando una poda diferente y por tanto tienen un coste computacional distinto.
 
   \vspace{2mm}
 
-  Además conforme el tamaño de los mapas va aumentando, la diferencia de tiempo que se tarda en resolver mapas del mismo tamaño también va aumentando, pues cuantas más ciudades haya, más caminos hay, y por tanto más veces se puede aplicar la poda en la resolución del problema.
+  Además, conforme el tamaño de los mapas va aumentando, la diferencia de tiempo que se tarda en resolver mapas del mismo tamaño también va creciendo, pues cuantas más ciudades haya, más caminos hay, y más posibilidades de aplicar poda en la resolución del problema. También se observa que para tamaños grandes no se están ejecutando todos los mapas, algo que ya ocurría en el anterior algoritmo y que se debe a un gran consumo de memoria.
+
+
+
 
   \subsubsection{Estudio Combinado}
+
+  Para el estudio combinado del algoritmo DFS con poda se quiere comprobar si las hipótesis del estudio analítico coinciden con los resultados obtenidos empíricamente. Se analizan por separado el peor y mejor caso con el fin de comprobar esta teoría. El problema surge debido a la enorme diferencia de tamaños entre el peor y el mejor caso. Mientras que el mejor caso tiene un coste polinómico, el peor tiene un coste factorial, que eclipsa por completo al otro caso a la hora de realizar comparaciones.
+
+  \vspace{2mm}
+
+  Graficar estas dos complejidades como límite inferior y superior es complejo dado estas diferencias. Por lo tanto se ha decidido no mostrar las gráficas dado que no aportaban nada al estudio. Se ha podido comprobar que los datos empíricos no siguen ni la función del mejor caso ni la del peor, sino una complejidad intermedia. Esto se debe a que los mapas graficados han sido generados aleatoriamente, y por tanto no corresponden ni a los peores ni a los mejores casos.
 
 
 
@@ -218,37 +260,37 @@
 
   \section{Algoritmo de búsqueda local}
 
-  Incialmente se realiza una búsqueda con un algoritmo \textit(greedy) o algoritmo voraz, que selecciona en cada paso el camino de menor coste, con la idea de conseguir la solución óptima. Sin embargo, los algoritmos voraces, a pesar de ser algoritmos completos, ya que garantizan encontrar siempre una solución, no garantizan que la solución encontrada sea óptima. 
+  Incialmente se realiza una búsqueda con un algoritmo \textit(greedy) o algoritmo voraz, que selecciona en cada paso el camino de menor coste, con la idea de conseguir la solución óptima. Sin embargo, los algoritmos voraces, a pesar de ser algoritmos completos, ya que garantizan encontrar siempre una solución, no garantizan que la solución encontrada sea óptima.
 
   \vspace{2mm}
 
-  Una vez se tiene un camino usando la búsqueda \textit{greedy}, se aplica sobre éste una búsqueda local con 2-opt, que tratará de mejorar la solución ofrecida inicialmente. Para ello, el algoritmo se basa en cambiar el orden en el que se visitan algunas ciudades en la ruta ofrecida, recalculando el coste de recorrer todas las ciudades. En el caso de que el coste total de recorrer el grafo no mejore, el algoritmo se detiene, ofreciendo una solución a priori mejor que la solución incial. De nuevo, al igual que el algoritmo voraz, la optimización 2-opt no garantiza encontrar la solución óptima al problema. 
-  
+  Una vez se tiene un camino usando la búsqueda \textit{greedy}, se aplica sobre éste una búsqueda local con 2-opt, que tratará de mejorar la solución ofrecida inicialmente. Para ello, el algoritmo se basa en cambiar el orden en el que se visitan algunas ciudades en la ruta ofrecida, recalculando el coste de recorrer todas las ciudades. En el caso de que el coste total de recorrer el grafo no mejore, el algoritmo se detiene, ofreciendo una solución a priori mejor que la solución incial. De nuevo, al igual que el algoritmo voraz, la optimización 2-opt no garantiza encontrar la solución óptima al problema.
+
   \vspace{2mm}
 
-  En este caso, para la implementación del algoritmo no es necesaria una pila de nodos expandidos porque no hace falta explorar todos los caminos. Ya que se expande siempre en cada nodo el de menor coste. 
+  En este caso, para la implementación del algoritmo no es necesaria una pila de nodos expandidos porque no hace falta explorar todos los caminos. Ya que se expande siempre en cada nodo el de menor coste.
 
 
-  
+
 
   \subsection{Coste Computacional}
-  
+
   \subsubsection{Estudio Analítico}
 
   Dado un número de ciudades $n$, el algoritmo voraz debe elegir una ciudad nueva únicamente cada vez que se desciende un nivel en el árbol. En el último nivel, todas las ciudades deben haber sido visitadas. Como todos los nodos del grafo se deben recorrer, no existe peor caso. En la figura \ref{fig:ejGreedy} se puede ver un ejemplo en un grafo de este algoritmo con 4 ciudades.
-  
+
   \begin{figure}[!h]
     \imgcenter[20]{Images/caminoGreedy.png}
     \caption{Ejemplo de grafo con un único camino}
     \label{fig:ejGreedy}
   \end{figure}
-  
+
   El algoritmo diseñado consta de un bucle \textit{for} exterior en el que se elige en cada iteración el nodo siguiente a crear, y un bucle \textit{for} interior, que elige el camino de menor coste para viajar a la siguiente ciudad, teniendo en cuenta no visitar ninguna ciudad que ya haya sido visitada. Por tanto, teniendo $n$ ciudades, el bucle exterior se ejecutará $n - 1$ veces, ya que la primera ciudad es la ciudad inicial, que se cuenta como visitada, y el bucle interior se ejecuta $n$ veces, puesto que en cada iteración se comprueba si cada ciudad ha sido visitada o no, incluyendo la ciudad inicial. La complejidad del algoritmo voraz queda por tanto como:
-  
+
   $$T_{greedy}(n) = n*(n-1) = n^2 + n$$
 
   \vspace{2mm}
-  
+
   La segunda parte de la solución planteada pasa por utilizar el algoritmo 2-opt para mejorar la solución dada por el algoritmo voraz. Este algoritmo elige dos ciudades de la ruta propuesta y cambia el orden de todas la ciudades que estén entre estas dos, con la intención de que, al intercambiar el orden, el coste total de recorrer todas las ciudades disminuya.
 
   \vspace{2mm}
@@ -260,25 +302,25 @@
   La codificación del algoritmo consiste en ir realizando intercambios en el orden del camino base usando parejas de valores ($i$ y $k$), donde se realiza un bucle \textit{for} que itera por $i$ dándole un valor inicial de 1, y dentro hay un segundo bucle \textit{for} que itera por $k$ donde se inicializa siempre como $i+1$. Si se recorren ambos bucles realizando permutaciones sin haber encontrado una solución que mejore el estado actual, el algoritmo termina. En caso contrario, vuelve a realizar ambos bucles.
 
   \vspace{2mm}
-  
+
 
    El peor caso se da cuando el algoritmo tiene que comprobar todas las posibles combinaciones. Por lo tanto tiene que realizar todas las permutaciones posibles sobre $n-1$ elementos, con una complejidad de:
-   
+
   $$T_{2-opt}(n) = (n-1)!$$
-  
+
   Por tanto, la complejidad total del algoritmo de búsqueda local es:
-  
+
   $$T(n) = (n^2 + n) * (n-1)!$$
-  
+
   Y se puede expresar en notación \textit{Big-O} como:
-  
+
   $$O(n) = n!$$
 
 
 
 
   \subsubsection{Estudio Empírico}
-  
+
   \begin{figure}[!h]
     \imgcenter[150]{Images/tiempo_comparativa_local.png}
     \caption{Comparativa de tiempo búsqueda local}
@@ -292,6 +334,6 @@
   \clearpage
 
   \section{Conclusión}
-  
+
 
 \end{document}
