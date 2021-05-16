@@ -304,22 +304,24 @@
   \vspace{2mm}
 
 
-   El peor caso se da cuando el algoritmo tiene que comprobar todas las posibles combinaciones. Por lo tanto tiene que realizar todas las permutaciones posibles sobre $n-1$ elementos, con una complejidad de:
+  El mejor caso se da cuando el algoritmo \textit{greedy} encuentra la solución óptima o una solución que no se puede mejorar en un ciclo de 2-opt. En este caso la complejidad total del algoritmo sería:
 
-  $$T_{2-opt}(n) = (n-1)!$$
+  $$T_{mejor}(n) = n^2 +n$$
 
-  Por tanto, la complejidad total del algoritmo de búsqueda local es:
+  El peor caso se da cuando el algoritmo tiene que cambiar el camino en todos los ciclos hasta que termina. Según los autores de \textit{The Traveling Salesman Problem: A Case Study in Local Optimization} \cite{tsp} (página 19), en 1980 Van Leeuwen y Schoone demostraron que como mucho el número máximo de cruces será $n^3$. Así que en este caso la complejidad es:
 
-  $$T(n) = (n^2 + n) * (n-1)!$$
+  $$T_{peor}(n) = (n^2 +n) + n^3$$
 
-  Y se puede expresar en notación \textit{Big-O} como:
+  Se puede expresar en notación \textit{Big-O} como:
 
-  $$O(n) = n!$$
+  $$O(n) = n^3$$
 
 
 
 
   \subsubsection{Estudio Empírico}
+
+  Al realizar el estudio empírico (de nuevo, con los mismos archivos que se han usado para el resto de los estudios empíricos realizados), se observa que cuantas más ciudades existen en el grafo, más difícil se vuelve la tarea de saber exactamente cuánto tiempo tardará el algoritmo \textit{greedy} con la mejora 2-opt en devolver una solución final.
 
   \begin{figure}[!h]
     \imgcenter[150]{Images/tiempo_comparativa_local.png}
@@ -327,13 +329,52 @@
     \label{fig:compLocal}
   \end{figure}
 
+  \newpage
+  El algoritmo ha calculado soluciones para grafos desde 3 hasta 19 ciudades, como se puede ver en la figura \ref{fig:compLocal}. Esto se debe principalmente a que, en función de cuál sea la solución proporcionada por el algoritmo greedy, el tiempo necesario para aplicar la optimización 2-opt puede variar. La parte de mejora de la solución con 2-opt es además el motivo por el cual, cuando el número de ciudades es bajo, se tarda menos en encontrar una solución, pues el número de combinaciones posibles para colocar en orden las ciudades es más pequeño que en grafos con más ciudades.
+
+
+
+
 
 
   \subsubsection{Estudio Combinado}
 
+  En el estudio combinado del algoritmo de búsqueda local se quiere comparar el estudio analítico con el estudio empírico, con el fin de demostrar que, efectivamente, la complejidad descrita en el estudio analítico se corresponde con la obtenida en el estudio empírico.
+
+  \vspace{2mm}
+
+  Sin embargo, de nuevo sucede lo mismo que en el estudio combinado del algoritmo de búsqueda iterativa con poda. La función de complejidad obtenida no se corresponde con los resultados empíricos. De nuevo, se ha comprobado que los resultados obtenidos siguen una complejidad intermedia entre la complejidad del mejor caso y la complejidad del peor caso, ambos descritos durante el estudio analítico.
+
+  \vspace{2mm}
+
+  Remarcar que las soluciones generadas por este algoritmo no son siempre las óptimas y que al compararse con los resultados obtenidos con el DFS con poda, la diferencia del coste de recorrer un grafo es de un 14\%. Que de acuerdo con el \textit{paper} \cite{tsp} (página 4) mencionado anteriormente, se encuentra dentro del rango de la mayoría de las heurísticas. Aunque estos resultados pueden depender de un gran número de factores como puede ser la distancia entre las ciudades o el número de ciudades del mapa.
+
+
+
   \clearpage
 
   \section{Conclusión}
+
+  Tras la finalización de la práctica, se ha valorado muy positivamente el hecho de haber elegido finalmente \textit{C++} como lenguaje de programación para implementar los algoritmos, pues al ser el problema del viajante un problema de tipo NP-completo dentro de la rama de optimización combinatoria y tener un espacio de soluciones tan amplio, \textit{C++} es una de las mejores opciones para tratar con este tipo de problemas.
+
+  \vspace{2mm}
+
+  Se concluye que se han utilizado dos formas para resolver el problema del viajante. Por un lado, está la solución propuesta utilizando el algoritmo DFS, un algoritmo de búsqueda iterativa, donde se comprueban todas las combinaciones posibles, con el fin de asegurar encontrar la solución óptima para cualquier dominio del problema. Aplicando la poda, el coste computacional del algoritmo se reduce, pues en la mayoría de casos, el número de estados que se deben comprobar es menor.
+
+  \vspace{2mm}
+
+  Por otro lado, se encuentra la solución propuesta por el algoritmo voraz aplicando el algoritmo de optimización 2-opt a la solución obtenida del algoritmo voraz. Los dos algoritmos son algoritmos de búsqueda local. En este caso, no se garantiza que la solución encontrada sea la solución óptima, a cambio de intentar reducir el coste computacional del problema.
+
+  \vspace{2mm}
+
+  En resumen, ambas opciones son válidas, pues aunque las soluciones que ofrecen los algoritmos de búsqueda local no son óptimas, son lo suficientemente buenas y cercanas a la solución óptima como para poder discriminar esa diferencia y aceptarlas.
+
+
+
+  \newpage
+
+  \bibliographystyle{unsrt}
+  \bibliography{bibliography}
 
 
 \end{document}
